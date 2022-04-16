@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Remin</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_tasks">Twoje Przypomnienia</string>
+
+
+    <string name="priority_high">Niezwykle istotne</string>
+    <string name="priority_normal">Zwykłe</string>
+
+</resources>
