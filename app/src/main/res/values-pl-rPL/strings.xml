@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Personal Reminder</string>
+
+    <string name="your_tasks">Twoje Przypomnienia</string>
+
+    <string name="priority_high">Ważne</string>
+    <string name="priority_normal">Zwykłe</string>
+
+    <string name="create_task_new_task">Nowe Zadanie</string>
+
+    <string name="task_name">Nazwa</string>
+    <string name="task_description">Opis</string>
+    <string name="task_date">Data</string>
+    <string name="common_add">Dodaj</string>
+
+</resources>
