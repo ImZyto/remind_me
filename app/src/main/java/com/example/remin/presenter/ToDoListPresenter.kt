@@ -16,11 +16,11 @@ class ToDoListPresenter(private val display: TodoListDisplay) {
     private var taskList = emptyList<Task>()
 
     init {
-        getAllTasks()
+        loadAllTasks()
         display.setOnAddTaskBtnClickListener(display::navigateToAddTaskFragment)
     }
 
-    private fun getAllTasks() = CoroutineScope(Dispatchers.IO).launch {
+    private fun loadAllTasks() = CoroutineScope(Dispatchers.IO).launch {
         taskList = repository.getAllTasks()
         display.loadTaskList(taskList)
     }
