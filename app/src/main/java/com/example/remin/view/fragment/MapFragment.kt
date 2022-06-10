@@ -16,11 +16,8 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 
 class MapFragment : Fragment(), MapDisplay {
 
-    private lateinit var navigation: NavController
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        map.setTileSource(TileSourceFactory.MAPNIK)
     }
 
     override fun onCreateView(
@@ -31,7 +28,7 @@ class MapFragment : Fragment(), MapDisplay {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navigation = Navigation.findNavController(view)
+        map.setTileSource(TileSourceFactory.MAPNIK)
         MapPresenter(this)
     }
 
