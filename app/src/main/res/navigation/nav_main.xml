@@ -6,6 +6,19 @@
     app:startDestination="@id/toDoList">
 
     <fragment
+        android:id="@+id/main_view"
+        android:name="com.example.remin.view.fragment.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainView_to_createTaskFragment"
+            app:destination="@id/createTaskFragment" />
+        <action
+            android:id="@+id/action_mainView_to_toDoListFragment"
+            app:destination="@id/toDoList" />
+    </fragment>
+
+    <fragment
         android:id="@+id/toDoList"
         android:name="com.example.remin.view.fragment.ToDoListFragment"
         android:label="fragment_to_do_list"
