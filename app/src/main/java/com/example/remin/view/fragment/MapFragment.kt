@@ -7,17 +7,23 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.example.remin.BuildConfig
 import com.example.remin.R
 import com.example.remin.presenter.MapPresenter
 import com.example.remin.view.display.MapDisplay
 import kotlinx.android.synthetic.main.fragment_map.*
+import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.CustomZoomButtonsController
+import org.osmdroid.views.overlay.compass.CompassOverlay
 
 
 class MapFragment : Fragment(), MapDisplay {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Configuration.getInstance().userAgentValue = BuildConfig.APPLICATION_ID
     }
 
     override fun onCreateView(
@@ -29,6 +35,16 @@ class MapFragment : Fragment(), MapDisplay {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         map.setTileSource(TileSourceFactory.MAPNIK)
+        map.controller.setZoom(16.5)
+        map.zoomController.setVisibility(CustomZoomButtonsController.Visibility.ALWAYS)
+        map.setMultiTouchControls(false)
+
+        var compassOverlay: CompassOverlay = CompassOverlay(activity!!.applicationContext, map)
+        map.overlays.add(compassOverlay)
+
+        var startingPoint: GeoPoint = GeoPoint(52.40, 16.90)
+        map.controller.setCenter(startingPoint)
+
         MapPresenter(this)
     }
 
