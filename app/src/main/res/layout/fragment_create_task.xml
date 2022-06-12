@@ -1,14 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateTaskFragment">
+    android:background="#ffffff"
+    tools:context=".view.fragment.CreateTaskFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/backIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@null" />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/create_task_new_task"
+        android:textColor="@color/colorDarkerGray"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="@+id/backIv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/backIv" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/taskNameEt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="@string/task_name"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:nextFocusForward="@+id/taskDescriptionTv"
+        android:singleLine="true"
+        android:textColor="@color/colorDarkerGray"
+        android:textColorHint="@color/colorDarkerGray"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backIv" />
+
+    <EditText
+        android:id="@+id/taskDescriptionEt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/task_description"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:gravity="bottom"
+        android:singleLine="false"
+        android:textColor="@color/colorDarkerGray"
+        android:textColorHint="@color/colorDarkerGray"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/taskNameEt"
+        app:layout_constraintStart_toStartOf="@+id/taskNameEt"
+        app:layout_constraintTop_toBottomOf="@+id/taskNameEt" />
+
+    <TextView
+        android:id="@+id/taskPriorityTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/priority_normal"
+        android:textColor="@color/colorDarkerGray"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/taskPrioritySw"
+        app:layout_constraintStart_toStartOf="@+id/taskDescriptionEt"
+        app:layout_constraintTop_toBottomOf="@+id/taskDescriptionEt" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/taskPrioritySw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:checked="false"
+        app:layout_constraintStart_toEndOf="@+id/taskPriorityTv"
+        app:layout_constraintTop_toBottomOf="@+id/taskDescriptionEt"
+        app:trackTint="@color/colorPrimaryDark" />
+
+    <Button
+        android:id="@+id/taskDateBtn"
+        style="?android:spinnerStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorDarkerGray"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/taskPrioritySw"
+        app:layout_constraintEnd_toEndOf="@+id/taskDescriptionEt"
+        app:layout_constraintStart_toEndOf="@+id/taskPrioritySw"
+        app:layout_constraintTop_toTopOf="@+id/taskPrioritySw"
+        tools:text="12-12-2012" />
+
+    <Button
+        android:id="@+id/addBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_button_enabled"
+        android:text="@string/common_add"
+        android:textColor="@color/colorDarkerGray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/taskNameEt"
+        app:layout_constraintStart_toStartOf="@+id/taskNameEt"
+        app:layout_constraintTop_toBottomOf="@+id/taskDateBtn" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
