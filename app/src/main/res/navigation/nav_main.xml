@@ -11,7 +11,7 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
-            android:id="@+id/action_mainView_to_createTaskFragment"
+            android:id="@id/action_toDoList_to_createTaskFragment"
             app:destination="@id/createTaskFragment" />
         <action
             android:id="@+id/action_mainView_to_toDoListFragment"
