@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/createTaskFragment"
-        android:name="com.example.remin.CreateTaskFragment"
+        android:name="com.example.remin.view.fragment.CreateTaskFragment"
         android:label="fragment_create_task"
         tools:layout="@layout/fragment_create_task" />
 </navigation>
