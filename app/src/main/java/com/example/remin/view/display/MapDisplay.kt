@@ -6,4 +6,6 @@ interface MapDisplay {
 
     fun getFragmentContext(): Context
 
+    fun initMap()
+
 }

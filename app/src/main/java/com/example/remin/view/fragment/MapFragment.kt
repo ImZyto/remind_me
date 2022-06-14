@@ -34,6 +34,12 @@ class MapFragment : Fragment(), MapDisplay {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        MapPresenter(this)
+    }
+
+    override fun getFragmentContext() = requireContext()
+
+    override fun initMap() {
         map.setTileSource(TileSourceFactory.MAPNIK)
         map.controller.setZoom(16.5)
         map.zoomController.setVisibility(CustomZoomButtonsController.Visibility.ALWAYS)
@@ -44,12 +50,7 @@ class MapFragment : Fragment(), MapDisplay {
 
         var startingPoint: GeoPoint = GeoPoint(52.40, 16.90)
         map.controller.setCenter(startingPoint)
-
-        MapPresenter(this)
     }
-
-    override fun getFragmentContext() = requireContext()
-
 
 
     override fun onResume() {
