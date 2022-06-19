@@ -3,7 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/toDoList">
+    app:startDestination="@id/mainView">
+
+    <fragment
+        android:id="@+id/mainView"
+        android:name="com.example.remin.view.fragment.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@id/action_toDoList_to_createTaskFragment"
+            app:destination="@id/createTaskFragment" />
+        <action
+            android:id="@+id/action_mainView_to_toDoListFragment"
+            app:destination="@id/toDoList" />
+    </fragment>
 
     <fragment
         android:id="@+id/toDoList"

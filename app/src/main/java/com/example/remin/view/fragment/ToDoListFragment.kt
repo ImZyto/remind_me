@@ -17,8 +17,6 @@ import kotlinx.android.synthetic.main.fragment_to_do_list.*
 
 class ToDoListFragment : Fragment(), TodoListDisplay {
 
-    private lateinit var navigation: NavController
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,8 +25,6 @@ class ToDoListFragment : Fragment(), TodoListDisplay {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        navigation = Navigation.findNavController(view)
         ToDoListPresenter(this)
     }
 
@@ -42,7 +38,7 @@ class ToDoListFragment : Fragment(), TodoListDisplay {
     }
 
     override fun navigateToAddTaskFragment() =
-        navigation.navigate(R.id.action_toDoList_to_createTaskFragment)
+        Navigation.findNavController(requireView()).navigate(R.id.action_toDoList_to_createTaskFragment)
 
 
     override fun getFragmentContext() = requireContext()
