@@ -8,6 +8,6 @@
     <item name="colorBlack" type="color">#000000</item>
     <item name="colorDarkerGray" type="color">#36454F</item>
     <item name="colorLighterGray" type="color">#696969</item>
-
+    <item name="white" type="color">#FFFFFF</item>
     <item name="colorOnError" type="color">#ff3d00</item>
 </resources>
