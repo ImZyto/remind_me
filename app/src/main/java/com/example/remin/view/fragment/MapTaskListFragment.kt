@@ -4,16 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.HorizontalScrollView
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.remin.R
 import com.example.remin.model.dataclass.Task
 import com.example.remin.presenter.MapTaskListPresenter
-import com.example.remin.presenter.ToDoListPresenter
+import com.example.remin.view.adapter.MapTaskListAdapter
 import com.example.remin.view.adapter.TaskAdapter
 import com.example.remin.view.display.MapTaskListDisplay
-import kotlinx.android.synthetic.main.fragment_to_do_list.*
+import kotlinx.android.synthetic.main.fragment_map_task_list.*
 
 class MapTaskListFragment : Fragment(), MapTaskListDisplay {
 
@@ -29,8 +31,8 @@ class MapTaskListFragment : Fragment(), MapTaskListDisplay {
     }
 
     override fun loadTaskList(taskList: List<Task>) {
-        taskListRv.layoutManager = LinearLayoutManager(requireContext())
-        taskListRv.adapter = TaskAdapter(requireContext(), taskList)
+        mapTaskListRv.layoutManager = LinearLayoutManager(activity!!.applicationContext, RecyclerView.HORIZONTAL, false)
+        mapTaskListRv.adapter = MapTaskListAdapter(requireContext(), taskList)
     }
 
     override fun getFragmentContext() = requireContext()
