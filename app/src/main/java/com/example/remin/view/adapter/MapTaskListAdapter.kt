@@ -23,7 +23,7 @@ class MapTaskListAdapter(private val context: Context, private val taskList: Lis
         holder.taskDescriptionTv.text = taskList[position].description
         holder.navigateToTaskBtn.setOnClickListener {
             Navigation.findNavController(it)
-                .navigate(R.id.action_mainView_to_createTaskFragment, null)
+                .navigate(R.id.action_mainFragment_to_createTaskFragment, null)
         }
     }
 

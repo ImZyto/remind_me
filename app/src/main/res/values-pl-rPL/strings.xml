@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Personal Reminder</string>
-
     <string name="your_tasks">Twoje Przypomnienia</string>
+
+    <string name="nav_calendar">Kalendarz</string>
+    <string name="nav_home">Home</string>
 
     <string name="priority_high">Ważne</string>
     <string name="priority_normal">Zwykłe</string>
