@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/taskAdd"
+        android:id="@+id/createTaskFragment"
         android:enabled="true"
         android:icon="@drawable/ic_add"
-        android:title="taskAdd"/>
+        android:title="Add"/>
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/mainFragment"
         android:enabled="true"
         android:icon="@drawable/ic_home"
         android:title="taskList" />
 
     <item
-        android:id="@+id/calendar"
+        android:id="@+id/toDoListFragment"
         android:enabled="true"
         android:icon="@drawable/ic_calendar"
         android:title="taskList" />
