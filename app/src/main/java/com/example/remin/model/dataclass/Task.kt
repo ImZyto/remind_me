@@ -1,9 +1,16 @@
 package com.example.remin.model.dataclass
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.util.*
+
+@Entity(tableName = "tasks_table")
 data class Task(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val name: String,
-    val highPriority: Boolean = false,
+    var highPriority: Boolean = false,
     var description: String?,
-    var date: String?,
-    val localization: String?
+    var date: Date,
+    val localization: String = ""
 )
