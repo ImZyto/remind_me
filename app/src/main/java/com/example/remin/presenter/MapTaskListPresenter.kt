@@ -22,10 +22,6 @@ class MapTaskListPresenter (private val display: MapTaskListDisplay) {
 
     private fun loadAllTasks() = CoroutineScope(Dispatchers.IO).launch {
         taskList = repository.getAllTasks()
-        val task1 = Task(id = 1, date = Date(), name = "test", description = "test")
-        val task2 = Task(id = 2, date = Date(), name = "test", description = "test")
-        val task3 = Task(id = 3, date = Date(), name = "test", description = "test")
-        taskList = listOf(task1, task2, task3)
         display.loadTaskList(taskList)
     }
 
