@@ -42,7 +42,7 @@ class MapFragment : Fragment(), MapDisplay {
     override fun initMap() {
         map.setTileSource(TileSourceFactory.MAPNIK)
         map.controller.setZoom(16.5)
-        map.zoomController.setVisibility(CustomZoomButtonsController.Visibility.ALWAYS)
+        map.zoomController.setVisibility(CustomZoomButtonsController.Visibility.NEVER)
         map.setMultiTouchControls(false)
 
         var compassOverlay: CompassOverlay = CompassOverlay(activity!!.applicationContext, map)
