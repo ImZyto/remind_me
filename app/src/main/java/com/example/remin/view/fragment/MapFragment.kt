@@ -1,12 +1,10 @@
 package com.example.remin.view.fragment
-import android.content.Context
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.example.remin.BuildConfig
 import com.example.remin.R
 import com.example.remin.presenter.MapPresenter
@@ -45,10 +43,10 @@ class MapFragment : Fragment(), MapDisplay {
         map.zoomController.setVisibility(CustomZoomButtonsController.Visibility.ALWAYS)
         map.setMultiTouchControls(false)
 
-        var compassOverlay: CompassOverlay = CompassOverlay(activity!!.applicationContext, map)
+        val compassOverlay = CompassOverlay(requireContext(), map)
         map.overlays.add(compassOverlay)
 
-        var startingPoint: GeoPoint = GeoPoint(52.40, 16.90)
+        val startingPoint = GeoPoint(52.40, 16.90)
         map.controller.setCenter(startingPoint)
     }
 

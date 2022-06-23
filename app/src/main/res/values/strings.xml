@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Personal Reminder</string>
     <string name="your_tasks">Your Tasks</string>
+
+    <string name="nav_calendar">Calendar</string>
+    <string name="nav_home">Home</string>
     
     <string name="priority_high">Important</string>
     <string name="priority_normal">Normal</string>
