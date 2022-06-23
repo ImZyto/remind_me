@@ -9,7 +9,7 @@
         android:id="@+id/mainFragment"
         android:name="com.example.remin.view.fragment.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@id/action_toDoList_to_createTaskFragment"
             app:destination="@id/createTaskFragment" />
@@ -22,7 +22,7 @@
         android:id="@+id/toDoListFragment"
         android:name="com.example.remin.view.fragment.ToDoListFragment"
         android:label="fragment_to_do_list"
-        tools:layout="@layout/fragment_to_do_list" >
+        tools:layout="@layout/fragment_to_do_list">
         <action
             android:id="@+id/action_toDoList_to_createTaskFragment"
             app:destination="@id/createTaskFragment" />

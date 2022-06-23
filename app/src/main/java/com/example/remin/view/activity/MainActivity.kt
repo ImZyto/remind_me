@@ -2,9 +2,8 @@ package com.example.remin.view.activity
 
 import android.content.Context
 import android.os.Bundle
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.remin.R
@@ -14,11 +13,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.osmdroid.config.Configuration
 
 class MainActivity : AppCompatActivity(), MainDisplay {
-    private lateinit var navHost: NavController
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val ctx: Context = applicationContext
+        val ctx = applicationContext
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx))
         setContentView(R.layout.activity_main)
         MainPresenter(this)

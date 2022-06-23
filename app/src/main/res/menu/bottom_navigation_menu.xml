@@ -4,17 +4,17 @@
         android:id="@+id/createTaskFragment"
         android:enabled="true"
         android:icon="@drawable/ic_add"
-        android:title="Add"/>
+        android:title="@string/common_add" />
 
     <item
         android:id="@+id/mainFragment"
         android:enabled="true"
         android:icon="@drawable/ic_home"
-        android:title="taskList" />
+        android:title="@string/nav_home" />
 
     <item
         android:id="@+id/toDoListFragment"
         android:enabled="true"
         android:icon="@drawable/ic_calendar"
-        android:title="taskList" />
+        android:title="@string/nav_calendar" />
 </menu>
