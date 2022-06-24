@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Primary brand color. -->
-    <item name="colorPrimary" type="color">#00e676</item>
+    <item name="colorPrimary" type="color">#CDEBB0</item>
     <item name="colorPrimaryDark" type="color">#00b248</item>
     <item name="colorAccent" type="color">#66ffa6</item>
 

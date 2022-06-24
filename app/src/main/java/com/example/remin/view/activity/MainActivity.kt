@@ -1,11 +1,10 @@
 package com.example.remin.view.activity
 
-import android.content.Context
 import android.os.Bundle
-import androidx.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.example.remin.R
 import com.example.remin.presenter.activity.MainPresenter
 import com.example.remin.view.display.MainDisplay

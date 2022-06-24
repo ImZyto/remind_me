@@ -3,24 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/mapFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.example.remin.view.fragment.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main">
-        <action
-            android:id="@id/action_toDoList_to_createTaskFragment"
-            app:destination="@id/createTaskFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_toDoListFragment"
-            app:destination="@id/toDoListFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_createTaskFragment"
-            app:destination="@id/toDoListFragment" />
-    </fragment>
-
+        android:id="@+id/mapFragment"
+        android:name="com.example.remin.view.fragment.MapFragment"
+        android:label="MapFragment"
+        tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/toDoListFragment"
         android:name="com.example.remin.view.fragment.ToDoListFragment"
@@ -34,5 +23,9 @@
         android:id="@+id/createTaskFragment"
         android:name="com.example.remin.view.fragment.CreateTaskFragment"
         android:label="fragment_create_task"
-        tools:layout="@layout/fragment_create_task" />
+        tools:layout="@layout/fragment_create_task" >
+        <action
+            android:id="@+id/action_createTaskFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
 </navigation>

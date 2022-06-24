@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.remin.BuildConfig
 import com.example.remin.R
+import com.example.remin.model.dataclass.Task
 import com.example.remin.presenter.MapPresenter
+import com.example.remin.view.adapter.MapTaskListAdapter
 import com.example.remin.view.display.MapDisplay
 import kotlinx.android.synthetic.main.fragment_map.*
 import org.osmdroid.config.Configuration
@@ -50,6 +54,11 @@ class MapFragment : Fragment(), MapDisplay {
         map.controller.setCenter(startingPoint)
     }
 
+    override fun loadTaskList(taskList: List<Task>) {
+        taskListHorizontalRv.layoutManager =
+        LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        taskListHorizontalRv.adapter = MapTaskListAdapter(requireContext(), taskList){}
+    }
 
     override fun onResume() {
         super.onResume()
@@ -60,5 +69,4 @@ class MapFragment : Fragment(), MapDisplay {
         super.onPause()
         map.onPause()
     }
-
 }
