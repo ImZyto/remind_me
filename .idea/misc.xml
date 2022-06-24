@@ -3,6 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.23385416666666667" />
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable/ic_launcher_background.xml" value="0.23385416666666667" />
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable/ic_outline_arrow_circle_down_24.xml" value="0.23385416666666667" />
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable/ic_outline_arrow_circle_down_30.xml" value="0.23385416666666667" />
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable/ic_outline_arrow_circle_down_40.xml" value="0.23385416666666667" />
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable/ic_outline_arrow_circle_down_50.xml" value="0.23385416666666667" />
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable/shape_button_disabled.xml" value="0.23385416666666667" />
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/layout/fragment_main.xml" value="0.16979166666666667" />
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/layout/fragment_map_list.xml" value="0.16979166666666667" />
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/layout/fragment_map_task_list.xml" value="0.234375" />
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/layout/map_task_list_tile.xml" value="0.16979166666666667" />
         <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/layout/task_list_row.xml" value="0.19739583333333333" />
         <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/drawable/button_outline.xml" value="0.3828125" />
