@@ -26,12 +26,10 @@ import org.osmdroid.views.overlay.compass.CompassOverlay
 import org.osmdroid.bonuspack.location.GeocoderNominatim
 import java.lang.Exception
 import android.view.MotionEvent
-
 import android.view.View.OnTouchListener
+import android.widget.AutoCompleteTextView
 
-
-
-
+import android.widget.ArrayAdapter
 
 class MapFragment : Fragment(), MapDisplay {
 
@@ -65,6 +63,13 @@ class MapFragment : Fragment(), MapDisplay {
 
         val startingPoint = GeoPoint(52.40, 16.90)
         map.controller.setCenter(startingPoint)
+
+        val languages = arrayOf("C", "C++", "Java", "C#", "PHP", "JavaScript", "jQuery", "AJAX", "JSON")
+
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(context!!, android.R.layout.select_dialog_singlechoice, languages)
+        searchBar.threshold = 1
+        searchBar.setAdapter(adapter)
 
         searchBar.setOnTouchListener(OnTouchListener { _, event ->
             val drawableRight = 2
