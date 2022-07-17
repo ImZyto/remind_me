@@ -1,7 +1,9 @@
 package com.example.remin.view.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.location.Address
+import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,8 +32,20 @@ import android.view.View.OnTouchListener
 import android.widget.AutoCompleteTextView
 
 import android.widget.ArrayAdapter
+import java.lang.ref.WeakReference
+import java.net.URL
+import android.widget.GridView
+
+import android.app.Activity
+import android.os.Parcel
+import android.os.Parcelable
+
 
 class MapFragment : Fragment(), MapDisplay {
+
+    lateinit var places: Array<String>
+    lateinit var adapter: ArrayAdapter<String>
+    lateinit var locationAddress: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,10 +78,10 @@ class MapFragment : Fragment(), MapDisplay {
         val startingPoint = GeoPoint(52.40, 16.90)
         map.controller.setCenter(startingPoint)
 
-        val languages = arrayOf("C", "C++", "Java", "C#", "PHP", "JavaScript", "jQuery", "AJAX", "JSON")
+        places = arrayOf()
 
-        val adapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(context!!, android.R.layout.select_dialog_singlechoice, languages)
+        adapter =
+            ArrayAdapter<String>(context!!, android.R.layout.select_dialog_singlechoice, places)
         searchBar.threshold = 1
         searchBar.setAdapter(adapter)
 
@@ -77,30 +91,63 @@ class MapFragment : Fragment(), MapDisplay {
                 if (event.rawX >= searchBar.right - searchBar.compoundDrawables[drawableRight].bounds.width()
                 ) {
                     // your action here
-                    addressesSearch(searchBar.text)
+                    locationAddress = searchBar.text.toString()
+                    val asyncTask: GetAddressesTask =
+                        GetAddressesTask(object : GetAddressesTask.AsyncResponse {
+                            override fun processFinish(addresses: List<Address?>?) {
+                                places = (addresses?: ArrayList<Address>()).map { address -> address?.getAddressLine(0)!! }.toTypedArray()
+                            }
+                    }).execute() as GetAddressesTask
+                    //val addresses: List<Address?>? = addressesSearch(searchBar.text)
+                    //places = (addresses?: ArrayList<Address>()).map { address -> address?.getAddressLine(0)!! }.toTypedArray()
                 }
             }
             false
         })
     }
 
-    fun addressesSearch(vararg params: Any): List<Address?>? {
-        val locationAddress = params[0] as String
+    private class GetAddressesTask(val delegate: AsyncResponse) : AsyncTask<String, Void, List<Address?>?>() {
+        interface AsyncResponse {
+            fun processFinish(output: List<Address?>?)
+        }
+
+        //var delegate: AsyncResponse? = null
+
+        override fun doInBackground(vararg location: String?): List<Address?>? {
+            //mIndex = params[1] as Int
+            val geocoder = GeocoderNominatim(System.getProperty("http.agent"))
+            geocoder.setOptions(true) //ask for enclosing polygon (if any)
+            //GeocoderGraphHopper geocoder = new GeocoderGraphHopper(Locale.getDefault(), graphHopperApiKey);
+            return try {
+                //val viewbox: BoundingBox = map.boundingBox
+                geocoder.getFromLocationName(
+                    location[0], 1
+                )
+            } catch (e: Exception) {
+                null
+            }
+        }
+
+        override fun onPostExecute(result: List<Address?>?) {
+            delegate.processFinish(result)
+        }
+    }
+
+    /*fun addressesSearch(vararg params: Any): List<Address?>? {
+        val locationAddress = params[0].toString()
         //mIndex = params[1] as Int
         val geocoder = GeocoderNominatim(System.getProperty("http.agent"))
         geocoder.setOptions(true) //ask for enclosing polygon (if any)
         //GeocoderGraphHopper geocoder = new GeocoderGraphHopper(Locale.getDefault(), graphHopperApiKey);
         return try {
-            val viewbox: BoundingBox = map.boundingBox
+            //val viewbox: BoundingBox = map.boundingBox
             geocoder.getFromLocationName(
-                locationAddress, 1,
-                viewbox.getLatSouth(), viewbox.getLonEast(),
-                viewbox.getLatNorth(), viewbox.getLonWest(), false
+                locationAddress, 1
             )
         } catch (e: Exception) {
             null
         }
-    }
+    }*/
 
     override fun loadTaskList(taskList: List<Task>) {
         taskListHorizontalRv.layoutManager =
