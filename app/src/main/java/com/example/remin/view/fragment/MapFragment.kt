@@ -96,8 +96,12 @@ class MapFragment : Fragment(), MapDisplay {
                         GetAddressesTask(object : GetAddressesTask.AsyncResponse {
                             override fun processFinish(addresses: List<Address?>?) {
                                 places = (addresses?: ArrayList<Address>()).map { address -> address?.getAddressLine(0)!! }.toTypedArray()
+                                adapter =
+                                    ArrayAdapter<String>(context!!, android.R.layout.select_dialog_singlechoice, places)
+                                searchBar.threshold = 1
+                                searchBar.setAdapter(adapter)
                             }
-                    }).execute() as GetAddressesTask
+                    }).execute(locationAddress) as GetAddressesTask
                     //val addresses: List<Address?>? = addressesSearch(searchBar.text)
                     //places = (addresses?: ArrayList<Address>()).map { address -> address?.getAddressLine(0)!! }.toTypedArray()
                 }
