@@ -39,11 +39,12 @@ import android.widget.GridView
 import android.app.Activity
 import android.os.Parcel
 import android.os.Parcelable
+import android.widget.ListAdapter
 
 
 class MapFragment : Fragment(), MapDisplay {
 
-    lateinit var places: Array<String>
+    lateinit var places: ArrayList<String>
     lateinit var adapter: ArrayAdapter<String>
     lateinit var locationAddress: String
 
@@ -78,28 +79,29 @@ class MapFragment : Fragment(), MapDisplay {
         val startingPoint = GeoPoint(52.40, 16.90)
         map.controller.setCenter(startingPoint)
 
-        places = arrayOf()
+        places = arrayListOf()
 
-        adapter =
-            ArrayAdapter<String>(context!!, android.R.layout.select_dialog_singlechoice, places)
-        searchBar.threshold = 1
-        searchBar.setAdapter(adapter)
+        var searchBarElt: AutoCompleteTextView = searchBar
 
-        searchBar.setOnTouchListener(OnTouchListener { _, event ->
+        adapter = ArrayAdapter<String>(context!!, android.R.layout.select_dialog_singlechoice, places)
+        searchBarElt.threshold = 1
+        searchBarElt.setAdapter(adapter)
+
+        searchBarElt.setOnTouchListener(OnTouchListener { _, event ->
             val drawableRight = 2
             if (event.action == MotionEvent.ACTION_UP) {
-                if (event.rawX >= searchBar.right - searchBar.compoundDrawables[drawableRight].bounds.width()
+                if (event.rawX >= searchBarElt.right - searchBarElt.compoundDrawables[drawableRight].bounds.width()
                 ) {
                     // your action here
-                    locationAddress = searchBar.text.toString()
+                    locationAddress = searchBarElt.text.toString()
                     val asyncTask: GetAddressesTask =
                         GetAddressesTask(object : GetAddressesTask.AsyncResponse {
                             override fun processFinish(addresses: List<Address?>?) {
-                                places = (addresses?: ArrayList<Address>()).map { address -> address?.getAddressLine(0)!! }.toTypedArray()
-                                adapter =
-                                    ArrayAdapter<String>(context!!, android.R.layout.select_dialog_singlechoice, places)
-                                searchBar.threshold = 1
-                                searchBar.setAdapter(adapter)
+                                places.addAll(0,(addresses?: ArrayList<Address>()).map { address -> address?.locality!! }.toList())
+                                adapter.insert(places[0], 0)
+                                adapter.filter.filter(locationAddress, null)
+                                adapter.notifyDataSetChanged()
+                                searchBarElt.showDropDown()
                             }
                     }).execute(locationAddress) as GetAddressesTask
                     //val addresses: List<Address?>? = addressesSearch(searchBar.text)
