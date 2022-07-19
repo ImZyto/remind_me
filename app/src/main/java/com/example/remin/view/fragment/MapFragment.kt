@@ -1,14 +1,13 @@
 package com.example.remin.view.fragment
 
+import com.example.remin.view.adapter.LocationAdapter
 import android.annotation.SuppressLint
-import android.content.Context
 import android.location.Address
 import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebSettings
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +20,6 @@ import com.example.remin.view.display.MapDisplay
 import kotlinx.android.synthetic.main.fragment_map.*
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
-import org.osmdroid.util.BoundingBox
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.CustomZoomButtonsController
 import org.osmdroid.views.overlay.compass.CompassOverlay
@@ -31,21 +29,11 @@ import android.view.MotionEvent
 import android.view.View.OnTouchListener
 import android.widget.AutoCompleteTextView
 
-import android.widget.ArrayAdapter
-import java.lang.ref.WeakReference
-import java.net.URL
-import android.widget.GridView
-
-import android.app.Activity
-import android.os.Parcel
-import android.os.Parcelable
-import android.widget.ListAdapter
-
 
 class MapFragment : Fragment(), MapDisplay {
 
-    lateinit var places: ArrayList<String>
-    lateinit var adapter: ArrayAdapter<String>
+    lateinit var places: ArrayList<Address?>
+    lateinit var adapter: LocationAdapter
     lateinit var locationAddress: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,7 +71,7 @@ class MapFragment : Fragment(), MapDisplay {
 
         var searchBarElt: AutoCompleteTextView = searchBar
 
-        adapter = ArrayAdapter<String>(context!!, android.R.layout.select_dialog_singlechoice, places)
+        adapter = LocationAdapter(context!!, android.R.layout.select_dialog_singlechoice, places)
         searchBarElt.threshold = 1
         searchBarElt.setAdapter(adapter)
 
@@ -97,7 +85,7 @@ class MapFragment : Fragment(), MapDisplay {
                     val asyncTask: GetAddressesTask =
                         GetAddressesTask(object : GetAddressesTask.AsyncResponse {
                             override fun processFinish(addresses: List<Address?>?) {
-                                places.addAll(0,(addresses?: ArrayList<Address>()).map { address -> address?.locality!! }.toList())
+                                places.addAll((addresses?: ArrayList<Address>()))
                                 adapter.insert(places[0], 0)
                                 adapter.filter.filter(locationAddress, null)
                                 adapter.notifyDataSetChanged()

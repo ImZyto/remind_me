@@ -1,4 +1,4 @@
-
+package com.example.remin.view.adapter
 import android.content.Context
 import android.location.Address
 import android.widget.TextView
@@ -13,7 +13,7 @@ import android.widget.Filter
 import com.example.remin.R
 
 
-class LocationAdapter(context: Context, var resources: Int, var items: List<Address>) :
+class LocationAdapter(context: Context, var resources: Int, var items: List<Address?>) :
     ArrayAdapter<Address>(context, resources, items) {
 
     var filtered = ArrayList<Address>()
@@ -53,7 +53,7 @@ class LocationAdapter(context: Context, var resources: Int, var items: List<Addr
             val results = arrayListOf<Address>()
 
             for (address in items) {
-                if (address.locality.lowercase().contains(input.lowercase())) results.add(address)
+                if (address!!.locality.lowercase().contains(input.lowercase())) results.add(address)
             }
 
             return results
