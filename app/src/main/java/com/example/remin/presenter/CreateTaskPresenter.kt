@@ -43,9 +43,9 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
     private fun handlePriorityChanged(isImportant: Boolean) {
         isTaskImportant = isImportant
         val textId = if (isImportant)
-            R.string.priority_high
+            R.string.task_priority_high
         else
-            R.string.priority_normal
+            R.string.task_priority_normal
         display.setTaskPriority(textId)
     }
 

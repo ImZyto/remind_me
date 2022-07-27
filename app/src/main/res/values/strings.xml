@@ -4,15 +4,17 @@
 
     <string name="nav_calendar">Calendar</string>
     <string name="nav_home">Home</string>
-    
-    <string name="priority_high">Important</string>
-    <string name="priority_normal">Normal</string>
 
-    <string name="create_task_new_task">New Task</string>
+    <string name="common_add">Add</string>
+    
+    <string name="task_priority_high">Important</string>
+    <string name="task_priority_normal">Normal</string>
+    <string name="task_create_new_task">New Task</string>
     <string name="task_name">Name</string>
     <string name="task_description">Description</string>
     <string name="task_date">Date</string>
-    <string name="common_add">Add</string>
+    <string name="task_status_done">Completed</string>
+    <string name="task_status_not_done">Not Completed</string>
 
 
 </resources>
