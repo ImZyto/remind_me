@@ -7,91 +7,33 @@
     android:background="@color/colorWhite"
     tools:context=".view.adapter.TaskAdapter">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:elevation="16dp"
-        android:padding="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
         <TextView
             android:id="@+id/taskNameTv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
             android:textColor="@color/design_default_color_on_secondary"
             android:textSize="20sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/taskStatusTv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Odbierz dyplom" />
 
         <TextView
-            android:id="@+id/taskPriorityTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/taskNameTv"
-            tools:text="Bardzo ważne" />
-
-        <ImageView
-            android:id="@+id/taskExpandBtn"
-            android:layout_width="30dp"
+            android:id="@+id/taskStatusTv"
+            android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_arrow_back"
-            android:background="@color/colorPrimaryDark"
-            app:layout_constraintBottom_toBottomOf="@+id/taskPriorityTv"
+            android:background="@drawable/shape_task_status_selector"
+            android:contentDescription="@null"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/taskNameTv"
-            android:contentDescription="@null" />
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/taskExpandGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:constraint_referenced_ids="taskDescriptionTv,taskDateTv, taskLocalizationTv" />
-
-        <TextView
-            android:id="@+id/taskDescriptionTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:textSize="12sp"
-            android:textColor="@color/colorBlack"
-            app:layout_constraintEnd_toEndOf="@+id/taskExpandBtn"
-            app:layout_constraintStart_toStartOf="@+id/taskNameTv"
-            app:layout_constraintTop_toBottomOf="@id/taskPriorityTv"
-            tools:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." />
-
-        <TextView
-            android:id="@+id/taskDateTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:text="20.06.2022"
-            android:textColor="@color/colorBlack"
-            app:layout_constraintStart_toStartOf="@id/taskNameTv"
-            app:layout_constraintTop_toBottomOf="@+id/taskDescriptionTv"/>
-
-        <TextView
-            android:id="@+id/taskLocalizationTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:text="Umultowska 97, Poznań"
-            android:textColor="@color/colorBlack"
-            app:layout_constraintEnd_toEndOf="@id/taskExpandBtn"
-            app:layout_constraintTop_toBottomOf="@+id/taskDescriptionTv"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            tools:text="Nie Zrobione"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

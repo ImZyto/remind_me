@@ -8,8 +8,4 @@ interface TodoListDisplay {
     fun getFragmentContext(): Context
 
     fun loadTaskList(taskList: List<Task>)
-
-    fun setOnAddTaskBtnClickListener(clickListener: () -> Unit)
-
-    fun navigateToAddTaskFragment()
 }
