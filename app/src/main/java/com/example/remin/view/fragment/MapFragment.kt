@@ -28,6 +28,13 @@ import java.lang.Exception
 import android.view.MotionEvent
 import android.view.View.OnTouchListener
 import android.widget.AutoCompleteTextView
+import android.widget.AdapterView
+
+import android.widget.AdapterView.OnItemClickListener
+import android.widget.Toast
+import android.view.Gravity
+import android.widget.AdapterView.OnItemSelectedListener
+import androidx.navigation.Navigation
 
 
 class MapFragment : Fragment(), MapDisplay {
@@ -85,19 +92,43 @@ class MapFragment : Fragment(), MapDisplay {
                     val asyncTask: GetAddressesTask =
                         GetAddressesTask(object : GetAddressesTask.AsyncResponse {
                             override fun processFinish(addresses: List<Address?>?) {
-                                places.addAll((addresses?: ArrayList<Address>()))
+                                places.addAll((addresses ?: ArrayList<Address>()))
                                 adapter.insert(places[0], 0)
                                 adapter.filter.filter(locationAddress, null)
                                 adapter.notifyDataSetChanged()
                                 searchBarElt.showDropDown()
                             }
-                    }).execute(locationAddress) as GetAddressesTask
-                    //val addresses: List<Address?>? = addressesSearch(searchBar.text)
-                    //places = (addresses?: ArrayList<Address>()).map { address -> address?.getAddressLine(0)!! }.toTypedArray()
+                        }).execute(locationAddress) as GetAddressesTask
                 }
             }
             false
         })
+
+        /*searchBarElt.onItemClickListener = object : OnItemClickListener {
+            override fun onItemClick(
+                parentView: AdapterView<*>?,
+                selectedItemView: View,
+                position: Int,
+                id: Long
+            ) {
+                //Toast.makeText(context, adapter.filtered[position]?.locality, Toast.LENGTH_LONG)
+                val toast: Toast = Toast.makeText(context, adapter.filtered[position]?.locality, Toast.LENGTH_LONG)
+                toast.show()
+                return
+            }
+        }*/
+
+        searchBarElt.onItemClickListener = object : OnItemClickListener {
+            override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val toast: Toast =
+                    Toast.makeText(context, adapter.filtered[position]?.locality, Toast.LENGTH_LONG)
+                toast.show()
+                searchBarElt.setText("")
+                /*val action = MapFragmentDirections.senderFragmentoRecieverFragment(character )
+                findNavController().navigate(action)
+                Navigation.findNavController(requireView()).navigate(R.id.action_toDoList_to_createTaskFragment)*/
+            }
+        }
     }
 
     private class GetAddressesTask(val delegate: AsyncResponse) : AsyncTask<String, Void, List<Address?>?>() {
