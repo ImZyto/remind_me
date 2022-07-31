@@ -16,9 +16,6 @@ import kotlinx.android.synthetic.main.fragment_map.*
 import android.widget.AutoCompleteTextView
 
 
-
-
-
 class LocationAdapter(context: Context, var resources: Int, var items: List<Address?>) :
     ArrayAdapter<Address>(context, resources, items), Filterable {
 
@@ -32,7 +29,7 @@ class LocationAdapter(context: Context, var resources: Int, var items: List<Addr
         val view: View = layoutInflater.inflate(R.layout.location_search_item, parent, false)
         val textView: TextView = view.findViewById(R.id.locationName)
         var address: Address? = filtered[position]
-        textView.text = address!!.locality
+        textView.text = address!!.extras["display_name"].toString()
         /*view.setOnClickListener { view ->
             selectedCustomer = view.tag as Customer
             searchBar.startSearch(selectedCustomer)
@@ -61,7 +58,7 @@ class LocationAdapter(context: Context, var resources: Int, var items: List<Addr
                     items
                 else
                     items.filter {
-                        it!!.locality.toLowerCase().contains(queryString)
+                        it!!.extras["display_name"].toString().toLowerCase().contains(queryString.toLowerCase())
                     }
                 return filterResults
             }

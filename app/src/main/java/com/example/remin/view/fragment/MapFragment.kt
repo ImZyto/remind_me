@@ -120,10 +120,11 @@ class MapFragment : Fragment(), MapDisplay {
 
         searchBarElt.onItemClickListener = object : OnItemClickListener {
             override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val toast: Toast =
+                /*val toast: Toast =
                     Toast.makeText(context, adapter.filtered[position]?.locality, Toast.LENGTH_LONG)
-                toast.show()
+                toast.show()*/
                 searchBarElt.setText("")
+                Navigation.findNavController(requireView()).navigate(R.id.action_mapFragment_to_createTaskFragment, Bundle().apply { putInt("location", 5) })
                 /*val action = MapFragmentDirections.senderFragmentoRecieverFragment(character )
                 findNavController().navigate(action)
                 Navigation.findNavController(requireView()).navigate(R.id.action_toDoList_to_createTaskFragment)*/
