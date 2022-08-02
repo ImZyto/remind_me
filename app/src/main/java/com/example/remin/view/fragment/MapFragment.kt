@@ -31,9 +31,6 @@ import android.widget.AutoCompleteTextView
 import android.widget.AdapterView
 
 import android.widget.AdapterView.OnItemClickListener
-import android.widget.Toast
-import android.view.Gravity
-import android.widget.AdapterView.OnItemSelectedListener
 import androidx.navigation.Navigation
 
 
@@ -104,30 +101,10 @@ class MapFragment : Fragment(), MapDisplay {
             false
         })
 
-        /*searchBarElt.onItemClickListener = object : OnItemClickListener {
-            override fun onItemClick(
-                parentView: AdapterView<*>?,
-                selectedItemView: View,
-                position: Int,
-                id: Long
-            ) {
-                //Toast.makeText(context, adapter.filtered[position]?.locality, Toast.LENGTH_LONG)
-                val toast: Toast = Toast.makeText(context, adapter.filtered[position]?.locality, Toast.LENGTH_LONG)
-                toast.show()
-                return
-            }
-        }*/
-
         searchBarElt.onItemClickListener = object : OnItemClickListener {
             override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                /*val toast: Toast =
-                    Toast.makeText(context, adapter.filtered[position]?.locality, Toast.LENGTH_LONG)
-                toast.show()*/
                 searchBarElt.setText("")
-                Navigation.findNavController(requireView()).navigate(R.id.action_mapFragment_to_createTaskFragment, Bundle().apply { putInt("location", 5) })
-                /*val action = MapFragmentDirections.senderFragmentoRecieverFragment(character )
-                findNavController().navigate(action)
-                Navigation.findNavController(requireView()).navigate(R.id.action_toDoList_to_createTaskFragment)*/
+                Navigation.findNavController(requireView()).navigate(R.id.action_mapFragment_to_createTaskFragment, Bundle().apply { putString("location", adapter.filtered[position]!!.extras["display_name"].toString()) })
             }
         }
     }
@@ -137,15 +114,12 @@ class MapFragment : Fragment(), MapDisplay {
             fun processFinish(output: List<Address?>?)
         }
 
-        //var delegate: AsyncResponse? = null
-
         override fun doInBackground(vararg location: String?): List<Address?>? {
             //mIndex = params[1] as Int
             val geocoder = GeocoderNominatim(System.getProperty("http.agent"))
             geocoder.setOptions(true) //ask for enclosing polygon (if any)
             //GeocoderGraphHopper geocoder = new GeocoderGraphHopper(Locale.getDefault(), graphHopperApiKey);
             return try {
-                //val viewbox: BoundingBox = map.boundingBox
                 geocoder.getFromLocationName(
                     location[0], 1
                 )
@@ -158,22 +132,6 @@ class MapFragment : Fragment(), MapDisplay {
             delegate.processFinish(result)
         }
     }
-
-    /*fun addressesSearch(vararg params: Any): List<Address?>? {
-        val locationAddress = params[0].toString()
-        //mIndex = params[1] as Int
-        val geocoder = GeocoderNominatim(System.getProperty("http.agent"))
-        geocoder.setOptions(true) //ask for enclosing polygon (if any)
-        //GeocoderGraphHopper geocoder = new GeocoderGraphHopper(Locale.getDefault(), graphHopperApiKey);
-        return try {
-            //val viewbox: BoundingBox = map.boundingBox
-            geocoder.getFromLocationName(
-                locationAddress, 1
-            )
-        } catch (e: Exception) {
-            null
-        }
-    }*/
 
     override fun loadTaskList(taskList: List<Task>) {
         taskListHorizontalRv.layoutManager =
