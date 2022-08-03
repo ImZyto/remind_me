@@ -76,7 +76,7 @@ class MapFragment : Fragment(), MapDisplay {
         var searchBarElt: AutoCompleteTextView = searchBar
 
         adapter = LocationAdapter(context!!, android.R.layout.select_dialog_singlechoice, places)
-        searchBarElt.threshold = 1
+        searchBarElt.threshold = 3
         searchBarElt.setAdapter(adapter)
 
         searchBarElt.setOnTouchListener(OnTouchListener { _, event ->
@@ -89,8 +89,8 @@ class MapFragment : Fragment(), MapDisplay {
                     val asyncTask: GetAddressesTask =
                         GetAddressesTask(object : GetAddressesTask.AsyncResponse {
                             override fun processFinish(addresses: List<Address?>?) {
-                                places.addAll((addresses ?: ArrayList<Address>()))
-                                adapter.insert(places[0], 0)
+                                adapter.clear()
+                                adapter.addAll((addresses ?: ArrayList<Address>()))
                                 adapter.filter.filter(locationAddress, null)
                                 adapter.notifyDataSetChanged()
                                 searchBarElt.showDropDown()
@@ -121,7 +121,7 @@ class MapFragment : Fragment(), MapDisplay {
             //GeocoderGraphHopper geocoder = new GeocoderGraphHopper(Locale.getDefault(), graphHopperApiKey);
             return try {
                 geocoder.getFromLocationName(
-                    location[0], 1
+                    location[0], 3
                 )
             } catch (e: Exception) {
                 null
