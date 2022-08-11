@@ -10,7 +10,6 @@ import androidx.core.app.NotificationCompat
 import com.example.remin.R
 import com.example.remin.view.activity.MainActivity
 
-
 const val notificationID = 1
 const val channelID = "channel1"
 const val tittleExtra = "titleExtra"
@@ -25,15 +24,13 @@ class Notification : BroadcastReceiver() {
         }
         val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intentToActivity, 0)
 
-//        val bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.ic_icon_256x256)
         val bitmapLargeIcon = BitmapFactory.decodeResource(context.resources, R.drawable.ic_icon_256x256)
 
         val notification = NotificationCompat.Builder(context, channelID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setLargeIcon(bitmapLargeIcon)
-//            .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
-            .setContentTitle(intent.getStringExtra(tittleExtra)) // to nie dziala przez intent
-            .setContentText(intent.getStringExtra(messageExtra)) //to też
+            .setContentTitle(intent.getStringExtra(tittleExtra))
+            .setContentText(intent.getStringExtra(messageExtra))
             .setContentIntent(pendingIntent)
             .build()
 

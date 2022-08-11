@@ -14,6 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Remin">
+        <receiver
+            android:name=".presenter.Notification"
+            android:enabled="true"/>
         <activity
             android:name="com.example.remin.view.activity.MainActivity"
             android:exported="true">
