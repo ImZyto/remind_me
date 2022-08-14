@@ -1,12 +1,13 @@
 package com.example.remin.view.display
 
 import android.content.Context
+import android.widget.TimePicker
 
 interface CreateTaskDisplay {
 
     fun getFragmentContext(): Context
 
-    fun initDatePicker(clickListener: (Int, Int, Int) -> Unit)
+    fun initDatePicker(clickListener: (Int, Int, Int) -> Unit, timeChangedListener: (Int,Int) -> Unit)
 
     fun showDatePicker()
 

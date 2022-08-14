@@ -19,7 +19,7 @@ class Notification : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
 
-        val intentToActivity = Intent(context, MainActivity::class.java).apply {
+        val intentToActivity = Intent(context, CreateTaskPresenter::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intentToActivity, 0)

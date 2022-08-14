@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -29,17 +30,27 @@ class CreateTaskFragment : Fragment(), CreateTaskDisplay {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         navigation = Navigation.findNavController(view)
         CreateTaskPresenter(this)
+
     }
 
     override fun getFragmentContext(): Context = requireContext()
 
-    override fun initDatePicker(clickListener: (Int, Int, Int) -> Unit) {
+    override fun initDatePicker(
+        clickListener: (Int, Int, Int) -> Unit,
+        timeChangedListener: (Int, Int) -> Unit
+    ) {
         datePickerDialog = DatePickerDialog(requireContext())
         datePickerDialog.setOnDateSetListener { _, year, monthOfYear, dayOfMonth ->
             clickListener(year, monthOfYear, dayOfMonth)
         }
+
+        timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
+            timeChangedListener(hourOfDay, minute)
+        }
+
     }
 
     override fun showDatePicker() = datePickerDialog.show()

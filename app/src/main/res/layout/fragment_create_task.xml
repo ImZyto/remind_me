@@ -101,6 +101,20 @@
         app:layout_constraintTop_toTopOf="@+id/taskPrioritySw"
         tools:text="12-12-2012" />
 
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:timePickerMode="spinner"
+        android:layout_gravity="center"
+        android:scaleY="0.7"
+        android:scaleX="0.7"
+        android:layout_marginHorizontal="-30dp"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@+id/taskPrioritySw" />
+
     <Button
         android:id="@+id/addBtn"
         android:layout_width="0dp"
