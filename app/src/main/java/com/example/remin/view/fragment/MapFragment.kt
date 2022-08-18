@@ -73,7 +73,7 @@ class MapFragment : Fragment(), MapDisplay {
 
         places = arrayListOf()
 
-        var searchBarElt: AutoCompleteTextView = searchBar
+        var searchBarElt: AutoCompleteTextView = searchBarAcTv
 
         adapter = LocationAdapter(context!!, android.R.layout.select_dialog_singlechoice, places)
         searchBarElt.threshold = 3
@@ -115,10 +115,8 @@ class MapFragment : Fragment(), MapDisplay {
         }
 
         override fun doInBackground(vararg location: String?): List<Address?>? {
-            //mIndex = params[1] as Int
             val geocoder = GeocoderNominatim(System.getProperty("http.agent"))
-            geocoder.setOptions(true) //ask for enclosing polygon (if any)
-            //GeocoderGraphHopper geocoder = new GeocoderGraphHopper(Locale.getDefault(), graphHopperApiKey);
+            geocoder.setOptions(true)
             return try {
                 geocoder.getFromLocationName(
                     location[0], 3

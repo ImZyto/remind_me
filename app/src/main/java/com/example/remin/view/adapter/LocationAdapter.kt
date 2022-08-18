@@ -22,18 +22,11 @@ class LocationAdapter(context: Context, var resources: Int, var items: List<Addr
     var filtered: List<Address?> = items
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        /*val seachBar = getView().findViewById<View>(
-            R.id.autocomplete_klantnaam
-        ) as AutoCompleteTextView*/
         val layoutInflater: LayoutInflater = LayoutInflater.from(context)
         val view: View = layoutInflater.inflate(R.layout.location_search_item, parent, false)
         val textView: TextView = view.findViewById(R.id.locationName)
         var address: Address? = filtered[position]
         textView.text = address!!.extras["display_name"].toString()
-        /*view.setOnClickListener { view ->
-            selectedCustomer = view.tag as Customer
-            searchBar.startSearch(selectedCustomer)
-        }*/
         return view
     }
 
