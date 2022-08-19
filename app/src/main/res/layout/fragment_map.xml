@@ -27,9 +27,10 @@
 
         <AutoCompleteTextView
             android:id="@+id/searchBarAcTv"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginTop="30dp"
+            android:layout_margin="16dp"
             android:hint="@string/common_search"
             android:background="@color/white"
             android:drawableEnd="@drawable/ic_baseline_search"

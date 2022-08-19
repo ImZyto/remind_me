@@ -32,6 +32,7 @@ import android.widget.AdapterView
 
 import android.widget.AdapterView.OnItemClickListener
 import androidx.navigation.Navigation
+import com.example.remin.view.utils.GetAddressesTask
 
 
 class MapFragment : Fragment(), MapDisplay {
@@ -39,11 +40,6 @@ class MapFragment : Fragment(), MapDisplay {
     lateinit var places: ArrayList<Address?>
     lateinit var adapter: LocationAdapter
     lateinit var locationAddress: String
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Configuration.getInstance().userAgentValue = BuildConfig.APPLICATION_ID
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +49,7 @@ class MapFragment : Fragment(), MapDisplay {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Configuration.getInstance().userAgentValue = BuildConfig.APPLICATION_ID
         MapPresenter(this)
     }
 
@@ -73,9 +70,12 @@ class MapFragment : Fragment(), MapDisplay {
 
         places = arrayListOf()
 
-        var searchBarElt: AutoCompleteTextView = searchBarAcTv
-
         adapter = LocationAdapter(context!!, android.R.layout.select_dialog_singlechoice, places)
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun initSearchBar() {
+        val searchBarElt: AutoCompleteTextView = searchBarAcTv
         searchBarElt.threshold = 3
         searchBarElt.setAdapter(adapter)
 
@@ -106,28 +106,6 @@ class MapFragment : Fragment(), MapDisplay {
                 searchBarElt.setText("")
                 Navigation.findNavController(requireView()).navigate(R.id.action_mapFragment_to_createTaskFragment, Bundle().apply { putString("location", adapter.filtered[position]!!.extras["display_name"].toString()) })
             }
-        }
-    }
-
-    private class GetAddressesTask(val delegate: AsyncResponse) : AsyncTask<String, Void, List<Address?>?>() {
-        interface AsyncResponse {
-            fun processFinish(output: List<Address?>?)
-        }
-
-        override fun doInBackground(vararg location: String?): List<Address?>? {
-            val geocoder = GeocoderNominatim(System.getProperty("http.agent"))
-            geocoder.setOptions(true)
-            return try {
-                geocoder.getFromLocationName(
-                    location[0], 3
-                )
-            } catch (e: Exception) {
-                null
-            }
-        }
-
-        override fun onPostExecute(result: List<Address?>?) {
-            delegate.processFinish(result)
         }
     }
 
