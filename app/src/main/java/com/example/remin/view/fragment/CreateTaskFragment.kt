@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.remin.R
+import com.example.remin.model.Constants.EXTRA_TASK_ID
 import com.example.remin.presenter.CreateTaskPresenter
 import com.example.remin.view.display.CreateTaskDisplay
 import kotlinx.android.synthetic.main.fragment_create_task.*
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_create_task.*
 class CreateTaskFragment : Fragment(), CreateTaskDisplay {
 
     private lateinit var datePickerDialog: DatePickerDialog
+    private lateinit var presenter: CreateTaskPresenter
 
     private lateinit var navigation: NavController
 
@@ -30,10 +32,15 @@ class CreateTaskFragment : Fragment(), CreateTaskDisplay {
         super.onViewCreated(view, savedInstanceState)
 
         navigation = Navigation.findNavController(view)
-        CreateTaskPresenter(this)
+        presenter = CreateTaskPresenter(this)
     }
 
     override fun getFragmentContext(): Context = requireContext()
+
+    override fun initView() {
+        if (arguments?.getInt(EXTRA_TASK_ID) != null)
+            presenter.getTask(id)
+    }
 
     override fun initDatePicker(clickListener: (Int, Int, Int) -> Unit) {
         datePickerDialog = DatePickerDialog(requireContext())

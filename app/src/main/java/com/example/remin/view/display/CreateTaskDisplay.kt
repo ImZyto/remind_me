@@ -6,6 +6,8 @@ interface CreateTaskDisplay {
 
     fun getFragmentContext(): Context
 
+    fun initView()
+
     fun initDatePicker(clickListener: (Int, Int, Int) -> Unit)
 
     fun showDatePicker()

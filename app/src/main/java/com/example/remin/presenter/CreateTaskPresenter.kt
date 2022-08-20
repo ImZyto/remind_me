@@ -8,6 +8,7 @@ import com.example.remin.view.display.CreateTaskDisplay
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.DateFormat
 import java.util.*
 
@@ -21,6 +22,8 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
     private var taskDate = Calendar.getInstance()
 
     init {
+        initView()
+        initListeners()
         display.initDatePicker { year, monthOfYear, dayOfMonth ->
             val selectedDate = Calendar.getInstance().apply {
                 set(Calendar.YEAR, year)
@@ -31,12 +34,29 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
             val date = DateFormat.getDateInstance(DateFormat.SHORT).format(selectedDate.time)
             display.setTaskDate(date)
         }
+    }
 
-        display.setOnDateBtnClickListener(display::showDatePicker)
-        display.setOnPrioritySwCheckListener(::handlePriorityChanged)
+    private fun initView() {
+
+
         display.setTaskDate(
             DateFormat.getDateInstance(DateFormat.SHORT).format(taskDate.time)
         )
+    }
+
+    fun getTask(taskId: Int) = CoroutineScope(Dispatchers.IO).launch {
+        val task = repository.getTaskById(taskId)
+        withContext(Dispatchers.Default) { initViewAsEditTaskView(task) }
+    }
+
+    private fun initViewAsEditTaskView(task: Task) {
+
+    }
+
+    private fun initListeners() {
+
+        display.setOnDateBtnClickListener(display::showDatePicker)
+        display.setOnPrioritySwCheckListener(::handlePriorityChanged)
         display.setOnAddClickListener(::handleAddClick)
     }
 

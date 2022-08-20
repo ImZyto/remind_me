@@ -12,6 +12,9 @@ interface TasksDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addTask(task: Task)
 
+    @Query("SELECT * FROM tasks_table WHERE id = :id")
+    fun getTaskById(id: Int): Task
+
     @Query("SELECT * FROM tasks_table ORDER BY date DESC")
     fun getAllTasks(): List<Task>
 }
