@@ -9,7 +9,11 @@
         android:id="@+id/mapFragment"
         android:name="com.example.remin.view.fragment.MapFragment"
         android:label="MapFragment"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map">
+        <action
+            android:id="@+id/action_mapFragment_to_createTaskFragment"
+            app:destination="@id/createTaskFragment" />
+    </fragment>
     <fragment
         android:id="@+id/toDoListFragment"
         android:name="com.example.remin.view.fragment.ToDoListFragment"

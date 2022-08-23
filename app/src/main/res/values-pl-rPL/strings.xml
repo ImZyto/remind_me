@@ -15,5 +15,5 @@
     <string name="task_description">Opis</string>
     <string name="task_date">Data</string>
     <string name="common_add">Dodaj</string>
-
+    <string name="common_search">Szukaj</string>
 </resources>
