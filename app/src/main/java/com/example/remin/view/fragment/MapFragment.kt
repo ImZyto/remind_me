@@ -33,6 +33,7 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import androidx.navigation.Navigation
 import com.example.remin.view.utils.GetAddressesTask
+import org.osmdroid.views.overlay.Marker
 
 
 class MapFragment : Fragment(), MapDisplay {
@@ -66,6 +67,11 @@ class MapFragment : Fragment(), MapDisplay {
         map.overlays.add(compassOverlay)
 
         val startingPoint = GeoPoint(52.40, 16.90)
+        val startPoint = GeoPoint(52.40, 16.90)
+        val startMarker = Marker(map)
+        startMarker.position = startPoint
+        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+        map.overlays.add(startMarker)
         map.controller.setCenter(startingPoint)
 
         places = arrayListOf()

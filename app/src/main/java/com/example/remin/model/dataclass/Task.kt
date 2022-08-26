@@ -12,5 +12,7 @@ data class Task(
     var highPriority: Boolean = false,
     var description: String?,
     var date: Date,
-    val localization: String = ""
+    val localization: String = "",
+    val latitude: Number,
+    val longitude: Number
 )
