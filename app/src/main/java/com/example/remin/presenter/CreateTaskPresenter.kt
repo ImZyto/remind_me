@@ -21,9 +21,12 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
 
     private var taskDate = Calendar.getInstance()
 
+    private lateinit var task: Task
+
     init {
-        initView()
-        initListeners()
+        display.initView()
+        display.setOnDateBtnClickListener(display::showDatePicker)
+        display.setOnPrioritySwCheckListener(::handlePriorityChanged)
         display.initDatePicker { year, monthOfYear, dayOfMonth ->
             val selectedDate = Calendar.getInstance().apply {
                 set(Calendar.YEAR, year)
@@ -36,28 +39,20 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
         }
     }
 
-    private fun initView() {
-
-
-        display.setTaskDate(
-            DateFormat.getDateInstance(DateFormat.SHORT).format(taskDate.time)
-        )
+    fun initViewAsEditTaskView(taskId: Int) = CoroutineScope(Dispatchers.IO).launch {
+        task = repository.getTaskById(taskId)
+        withContext(Dispatchers.Default) {
+            display.setDescription(task.description?: "")
+            display.setName(task.name)
+            display.setFragmentTitle(R.string.create_task_edit)
+            display.setTaskDate(DateFormat.getDateInstance(DateFormat.SHORT).format(task.date.time))
+            display.setSubmitButtonText(R.string.common_save)
+            display.setOnSubmitButtonClickListener(::handleSaveClick)
+        }
     }
 
-    fun getTask(taskId: Int) = CoroutineScope(Dispatchers.IO).launch {
-        val task = repository.getTaskById(taskId)
-        withContext(Dispatchers.Default) { initViewAsEditTaskView(task) }
-    }
-
-    private fun initViewAsEditTaskView(task: Task) {
-
-    }
-
-    private fun initListeners() {
-
-        display.setOnDateBtnClickListener(display::showDatePicker)
-        display.setOnPrioritySwCheckListener(::handlePriorityChanged)
-        display.setOnAddClickListener(::handleAddClick)
+    fun initViewAsAddTaskView() {
+        display.setOnSubmitButtonClickListener(::handleAddClick)
     }
 
     private fun handlePriorityChanged(isImportant: Boolean) {
@@ -79,6 +74,10 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
         )
         addTask(task)
         display.navigateBack()
+    }
+
+    private fun handleSaveClick() {
+        //TODO: implement entity update on database
     }
 
     private fun addTask(task: Task) = CoroutineScope(Dispatchers.IO).launch {

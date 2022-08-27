@@ -39,7 +39,14 @@ class CreateTaskFragment : Fragment(), CreateTaskDisplay {
 
     override fun initView() {
         if (arguments?.getInt(EXTRA_TASK_ID) != null)
-            presenter.getTask(id)
+            presenter.initViewAsEditTaskView(id)
+        else
+            presenter.initViewAsAddTaskView()
+
+        arguments?.getInt(EXTRA_TASK_LOCALIZATION).let {
+            //TODO: ADD Localization EditText
+        }
+
     }
 
     override fun initDatePicker(clickListener: (Int, Int, Int) -> Unit) {
@@ -64,6 +71,11 @@ class CreateTaskFragment : Fragment(), CreateTaskDisplay {
 
     override fun getDescription(): String = taskDescriptionEt.text.toString()
 
+    override fun setName(text: String) = taskNameEt.setText(text)
+
+    override fun setDescription(text: String) = taskDescriptionEt.setText(text)
+
+    override fun setFragmentTitle(textId: Int) = taskFragmentTitleTv.setText(textId)
 
     override fun setOnDateBtnClickListener(clickListener: () -> Unit) {
         taskDateBtn.setOnClickListener { clickListener() }
@@ -75,9 +87,11 @@ class CreateTaskFragment : Fragment(), CreateTaskDisplay {
         }
     }
 
-    override fun setOnAddClickListener(clickListener: () -> Unit) {
-        addBtn.setOnClickListener { clickListener() }
+    override fun setOnSubmitButtonClickListener(clickListener: () -> Unit) {
+        submitBtn.setOnClickListener { clickListener() }
     }
+
+    override fun setSubmitButtonText(textId: Int) = submitBtn.setText(textId)
 
     override fun navigateBack() {
         navigation.navigateUp()

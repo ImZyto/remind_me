@@ -9,10 +9,14 @@
     <string name="priority_normal">Normal</string>
 
     <string name="create_task_new_task">New Task</string>
+    <string name="create_task_edit">Edit</string>
+
+    <string name="task_localization">Localization</string>
     <string name="task_name">Name</string>
     <string name="task_description">Description</string>
     <string name="task_date">Date</string>
-    <string name="common_add">Add</string>
+    <string name="common_add">Add Task</string>
+    <string name="common_save">Save</string>
 
 
 </resources>

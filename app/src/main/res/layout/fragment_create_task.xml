@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@color/colorPrimary"
     tools:context=".view.fragment.CreateTaskFragment">
 
     <ImageView
@@ -12,106 +12,163 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:contentDescription="@null"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@null" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/taskFragmentTitleTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="@string/create_task_new_task"
-        android:textColor="@color/colorDarkerGray"
-        android:textSize="21sp"
+        android:textColor="@color/colorBlack"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="@+id/backIv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/backIv" />
 
-    <EditText
-        android:id="@+id/taskNameEt"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/taskNameTil"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:background="@color/colorPrimary"
         android:hint="@string/task_name"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:nextFocusForward="@+id/taskDescriptionTv"
-        android:singleLine="true"
-        android:textColor="@color/colorDarkerGray"
-        android:textColorHint="@color/colorDarkerGray"
-        android:textSize="16sp"
+        app:boxBackgroundColor="@null"
+        app:boxStrokeColor="@color/colorDarkerGray"
+        app:helperTextTextColor="@color/colorDarkerGray"
+        app:hintTextColor="@color/colorDarkerGray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backIv" />
+        app:layout_constraintTop_toBottomOf="@+id/backIv">
 
-    <EditText
-        android:id="@+id/taskDescriptionEt"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/taskNameEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:nextFocusForward="@+id/taskDescriptionTv"
+            android:singleLine="true"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/taskDescriptionTil"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="@string/task_description"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:gravity="bottom"
-        android:singleLine="false"
-        android:textColor="@color/colorDarkerGray"
-        android:textColorHint="@color/colorDarkerGray"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/taskNameEt"
-        app:layout_constraintStart_toStartOf="@+id/taskNameEt"
-        app:layout_constraintTop_toBottomOf="@+id/taskNameEt" />
+        android:background="@color/colorPrimary"
+        app:boxBackgroundColor="@null"
+        app:boxStrokeColor="@color/colorDarkerGray"
+        app:helperTextTextColor="@color/colorDarkerGray"
+        app:hintTextColor="@color/colorDarkerGray"
+        app:layout_constraintEnd_toEndOf="@+id/taskNameTil"
+        app:layout_constraintStart_toStartOf="@+id/taskNameTil"
+        app:layout_constraintTop_toBottomOf="@+id/taskNameTil">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/taskDescriptionEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:hint="@string/task_description"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:singleLine="false"
+            android:textColor="@color/colorDarkerGray"
+            android:textColorHint="@color/colorDarkerGray"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <!-- Odkomentować kiedy zostanie ustalona forma ustalania priorytetu zadania
+        <TextView
+            android:id="@+id/taskPriorityTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/priority_normal"
+            android:textColor="@color/colorDarkerGray"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/taskPrioritySw"
+            app:layout_constraintStart_toStartOf="@+id/taskDescriptionTil"
+            app:layout_constraintTop_toBottomOf="@+id/taskDescriptionTil" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/taskPrioritySw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:checked="false"
+            app:layout_constraintStart_toEndOf="@+id/taskPriorityTv"
+            app:layout_constraintTop_toBottomOf="@+id/taskDescriptionTil"
+            app:trackTint="@color/colorPrimaryDark" />
+    -->
     <TextView
-        android:id="@+id/taskPriorityTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/priority_normal"
-        android:textColor="@color/colorDarkerGray"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/taskPrioritySw"
-        app:layout_constraintStart_toStartOf="@+id/taskDescriptionEt"
-        app:layout_constraintTop_toBottomOf="@+id/taskDescriptionEt" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/taskPrioritySw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:checked="false"
-        app:layout_constraintStart_toEndOf="@+id/taskPriorityTv"
-        app:layout_constraintTop_toBottomOf="@+id/taskDescriptionEt"
-        app:trackTint="@color/colorPrimaryDark" />
-
-    <Button
-        android:id="@+id/taskDateBtn"
+        android:id="@+id/taskDateTv"
         style="?android:spinnerStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:paddingVertical="8dp"
         android:textAlignment="center"
         android:textColor="@color/colorDarkerGray"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/taskPrioritySw"
-        app:layout_constraintEnd_toEndOf="@+id/taskDescriptionEt"
-        app:layout_constraintStart_toEndOf="@+id/taskPrioritySw"
-        app:layout_constraintTop_toTopOf="@+id/taskPrioritySw"
+        app:layout_constraintEnd_toEndOf="@+id/taskDescriptionTil"
+        app:layout_constraintStart_toStartOf="@+id/taskDescriptionTil"
+        app:layout_constraintTop_toBottomOf="@+id/taskDescriptionTil"
         tools:text="12-12-2012" />
 
-    <Button
-        android:id="@+id/addBtn"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/taskLocalizationTil"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_button_enabled"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        app:boxBackgroundColor="@null"
+        app:boxStrokeColor="@color/colorDarkerGray"
+        app:helperTextTextColor="@color/colorDarkerGray"
+        app:hintTextColor="@color/colorDarkerGray"
+        app:layout_constraintEnd_toEndOf="@+id/taskDateTv"
+        app:layout_constraintStart_toStartOf="@+id/taskDateTv"
+        app:layout_constraintTop_toBottomOf="@+id/taskDateTv">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/taskLocalizationEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:hint="@string/task_localization"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:singleLine="false"
+            android:textColor="@color/colorDarkerGray"
+            android:textColorHint="@color/colorDarkerGray"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/submitBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:background="@drawable/shape_button_black"
         android:text="@string/common_add"
-        android:textColor="@color/colorDarkerGray"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="21sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/taskNameEt"
-        app:layout_constraintStart_toStartOf="@+id/taskNameEt"
-        app:layout_constraintTop_toBottomOf="@+id/taskDateBtn" />
+        app:layout_constraintEnd_toEndOf="@+id/taskNameTil"
+        app:layout_constraintStart_toStartOf="@+id/taskNameTil"
+        app:layout_constraintTop_toBottomOf="@+id/taskLocalizationTil" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

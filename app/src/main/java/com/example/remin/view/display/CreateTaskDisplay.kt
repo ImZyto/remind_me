@@ -16,6 +16,12 @@ interface CreateTaskDisplay {
 
     fun setTaskPriority(textId: Int)
 
+    fun setName(text: String)
+
+    fun setDescription(text: String)
+
+    fun setFragmentTitle(textId: Int)
+
     fun getName(): String
 
     fun getDescription(): String
@@ -24,7 +30,9 @@ interface CreateTaskDisplay {
 
     fun setOnPrioritySwCheckListener(checkListener: (Boolean) -> Unit)
 
-    fun setOnAddClickListener(clickListener: () -> Unit)
+    fun setOnSubmitButtonClickListener(clickListener: () -> Unit)
+
+    fun setSubmitButtonText(textId: Int)
 
     fun navigateBack()
 }
