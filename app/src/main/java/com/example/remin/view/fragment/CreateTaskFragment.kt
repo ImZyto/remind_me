@@ -44,7 +44,7 @@ class CreateTaskFragment : Fragment(), CreateTaskDisplay {
         else
             presenter.initViewAsAddTaskView()
 
-        setLocalization(arguments?.getInt(EXTRA_TASK_LOCALIZATION).toString())
+        setLocalization(arguments?.getString(EXTRA_TASK_LOCALIZATION)?: "")
     }
 
     override fun initDatePicker(clickListener: (Int, Int, Int) -> Unit) {
