@@ -20,11 +20,15 @@ interface CreateTaskDisplay {
 
     fun setDescription(text: String)
 
+    fun setLocalization(text: String)
+
     fun setFragmentTitle(textId: Int)
 
     fun getName(): String
 
     fun getDescription(): String
+
+    fun getLocalization(): String
 
     fun setOnDateBtnClickListener(clickListener: () -> Unit)
 

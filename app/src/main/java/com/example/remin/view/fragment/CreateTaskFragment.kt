@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.remin.R
 import com.example.remin.model.Constants.EXTRA_TASK_ID
+import com.example.remin.model.Constants.EXTRA_TASK_LOCALIZATION
 import com.example.remin.presenter.CreateTaskPresenter
 import com.example.remin.view.display.CreateTaskDisplay
 import kotlinx.android.synthetic.main.fragment_create_task.*
@@ -43,10 +44,7 @@ class CreateTaskFragment : Fragment(), CreateTaskDisplay {
         else
             presenter.initViewAsAddTaskView()
 
-        arguments?.getInt(EXTRA_TASK_LOCALIZATION).let {
-            //TODO: ADD Localization EditText
-        }
-
+        setLocalization(arguments?.getInt(EXTRA_TASK_LOCALIZATION).toString())
     }
 
     override fun initDatePicker(clickListener: (Int, Int, Int) -> Unit) {
@@ -60,31 +58,35 @@ class CreateTaskFragment : Fragment(), CreateTaskDisplay {
 
 
     override fun setTaskDate(date: String) {
-        taskDateBtn.text = date
+        taskDateTv.text = date
     }
 
     override fun setTaskPriority(textId: Int) {
-        taskPriorityTv.text = getString(textId)
+        //taskPriorityTv.text = getString(textId)
     }
 
     override fun getName(): String = taskNameEt.text.toString()
 
     override fun getDescription(): String = taskDescriptionEt.text.toString()
 
+    override fun getLocalization(): String = taskLocalizationEt.text.toString()
+
     override fun setName(text: String) = taskNameEt.setText(text)
 
     override fun setDescription(text: String) = taskDescriptionEt.setText(text)
 
+    override fun setLocalization(text: String) = taskLocalizationEt.setText(text)
+
     override fun setFragmentTitle(textId: Int) = taskFragmentTitleTv.setText(textId)
 
     override fun setOnDateBtnClickListener(clickListener: () -> Unit) {
-        taskDateBtn.setOnClickListener { clickListener() }
+        taskDateTv.setOnClickListener { clickListener() }
     }
 
     override fun setOnPrioritySwCheckListener(checkListener: (Boolean) -> Unit) {
-        taskPrioritySw.setOnCheckedChangeListener { _, isChecked ->
-            checkListener(isChecked)
-        }
+        //taskPrioritySw.setOnCheckedChangeListener { _, isChecked ->
+        //    checkListener(isChecked)
+        //}
     }
 
     override fun setOnSubmitButtonClickListener(clickListener: () -> Unit) {

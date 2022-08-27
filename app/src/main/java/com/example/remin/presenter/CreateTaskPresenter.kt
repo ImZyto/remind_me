@@ -77,11 +77,22 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
     }
 
     private fun handleSaveClick() {
-        //TODO: implement entity update on database
+        val task = Task(
+            name = display.getName(),
+            highPriority = isTaskImportant,
+            description = display.getDescription(),
+            date = taskDate.time,
+            localization = display.getLocalization()
+        )
+        updateTask(task)
+        display.navigateBack()
     }
 
     private fun addTask(task: Task) = CoroutineScope(Dispatchers.IO).launch {
         repository.addTask(task)
+    }
+    private fun updateTask(task: Task) = CoroutineScope(Dispatchers.IO).launch {
+        repository.updateTask(task)
     }
 
 }

@@ -10,4 +10,6 @@ class TasksRepository(private val tasksDao: TasksDao) {
     fun getTaskById(id: Int): Task = tasksDao.getTaskById(id)
 
     fun addTask(task: Task) = tasksDao.addTask(task)
+
+    fun updateTask(task: Task) = tasksDao.updateTask(task)
 }
