@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.23385416666666667" />
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable/ic_arrow_back.xml" value="0.37083333333333335" />
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.37083333333333335" />
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable/ic_baseline_search.xml" value="0.37083333333333335" />
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.25052083333333336" />
         <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable/ic_launcher_background.xml" value="0.23385416666666667" />
         <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable/ic_outline_arrow_circle_down_24.xml" value="0.23385416666666667" />
         <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable/ic_outline_arrow_circle_down_30.xml" value="0.23385416666666667" />
@@ -11,8 +15,10 @@
         <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable/ic_outline_arrow_circle_down_50.xml" value="0.23385416666666667" />
         <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/drawable/shape_button_disabled.xml" value="0.23385416666666667" />
         <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/layout/fragment_main.xml" value="0.16979166666666667" />
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/layout/fragment_map.xml" value="0.234375" />
         <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/layout/fragment_map_list.xml" value="0.16979166666666667" />
         <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/layout/fragment_map_task_list.xml" value="0.234375" />
+        <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/layout/location_search_item.xml" value="0.2375" />
         <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/layout/map_task_list_tile.xml" value="0.16979166666666667" />
         <entry key="..\:/Studia/Inzynierka/reminder/app/src/main/res/layout/task_list_row.xml" value="0.19739583333333333" />
         <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14635416666666667" />
@@ -27,14 +33,10 @@
         <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/drawable/shape_button_selector.xml" value="0.3828125" />
         <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/drawable/styled_edit_text.xml" value="0.3828125" />
         <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/drawable/task_row_shadow.xml" value="0.14635416666666667" />
-        <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/layout/fragment_create_task.xml" value="0.4" />
-        <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/layout/fragment_main.xml" value="0.19114583333333332" />
-        <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/layout/fragment_map.xml" value="0.19114583333333332" />
         <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/layout/fragment_to_do_list.xml" value="0.33" />
-        <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/layout/task_list_col.xml" value="0.33" />
         <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/layout/task_list_row.xml" value="0.3263707571801567" />
-        <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.15648148148148147" />
         <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/mipmap-anydpi-v26/ic_arrow_down.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/pawez/AndroidStudioProjects/Remin/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.14635416666666667" />

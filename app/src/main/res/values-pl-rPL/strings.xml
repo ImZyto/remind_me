@@ -18,5 +18,6 @@
     <string name="task_date">Data</string>
     <string name="common_add">Dodaj Zadanie</string>
     <string name="common_save">Zapisz</string>
+    <string name="common_search">Szukaj</string>
 
 </resources>

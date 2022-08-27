@@ -17,6 +17,6 @@
     <string name="task_date">Date</string>
     <string name="common_add">Add Task</string>
     <string name="common_save">Save</string>
-
+    <string name="common_search">Search</string>
 
 </resources>

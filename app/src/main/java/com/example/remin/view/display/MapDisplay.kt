@@ -9,5 +9,7 @@ interface MapDisplay {
 
     fun initMap()
 
+    fun initSearchBar()
+
     fun loadTaskList(taskList: List<Task>)
 }
