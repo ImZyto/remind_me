@@ -6,14 +6,15 @@
     <string name="nav_calendar">Kalendarz</string>
     <string name="nav_home">Home</string>
 
-    <string name="priority_high">Ważne</string>
-    <string name="priority_normal">Zwykłe</string>
-
-    <string name="create_task_new_task">Nowe Zadanie</string>
-
+    <string name="task_priority_high">Ważne</string>
+    <string name="task_priority_normal">Zwykłe</string>
+    <string name="task_create_new_task">Nowe Zadanie</string>
     <string name="task_name">Nazwa</string>
     <string name="task_description">Opis</string>
     <string name="task_date">Data</string>
     <string name="common_add">Dodaj</string>
     <string name="common_search">Szukaj</string>
+    <string name="task_status_done">Zrobione</string>
+    <string name="task_status_not_done">Nie zrobione</string>
+
 </resources>

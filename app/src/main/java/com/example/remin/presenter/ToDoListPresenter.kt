@@ -17,7 +17,6 @@ class ToDoListPresenter(private val display: TodoListDisplay) {
 
     init {
         loadAllTasks()
-        display.setOnAddTaskBtnClickListener(display::navigateToAddTaskFragment)
     }
 
     private fun loadAllTasks() = CoroutineScope(Dispatchers.IO).launch {

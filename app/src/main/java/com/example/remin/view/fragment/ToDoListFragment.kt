@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.remin.R
 import com.example.remin.model.dataclass.Task
@@ -32,13 +30,6 @@ class ToDoListFragment : Fragment(), TodoListDisplay {
         taskListRv.layoutManager = LinearLayoutManager(requireContext())
         taskListRv.adapter = TaskAdapter(requireContext(), taskList)
     }
-
-    override fun setOnAddTaskBtnClickListener(clickListener: () -> Unit) {
-        addTaskBtn.setOnClickListener { clickListener() }
-    }
-
-    override fun navigateToAddTaskFragment() =
-        Navigation.findNavController(requireView()).navigate(R.id.action_toDoList_to_createTaskFragment)
 
 
     override fun getFragmentContext() = requireContext()
