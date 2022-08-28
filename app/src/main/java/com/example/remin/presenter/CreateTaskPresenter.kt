@@ -21,7 +21,11 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
 
     private var taskDate = Calendar.getInstance()
 
-    private lateinit var task: Task
+    private var task = Task(
+        name = "",
+        date = Date(),
+        description = ""
+    )
 
     init {
         display.initView()
@@ -40,14 +44,15 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
     }
 
     fun initViewAsEditTaskView(taskId: Int) = CoroutineScope(Dispatchers.IO).launch {
-        task = repository.getTaskById(taskId)
-        withContext(Dispatchers.Default) {
-            display.setDescription(task.description?: "")
-            display.setName(task.name)
-            display.setFragmentTitle(R.string.create_task_edit)
-            display.setTaskDate(DateFormat.getDateInstance(DateFormat.SHORT).format(task.date.time))
-            display.setSubmitButtonText(R.string.common_save)
-            display.setOnSubmitButtonClickListener(::handleSaveClick)
+        repository.getTaskById(taskId).let {
+            withContext(Dispatchers.Default) {
+                display.setName(it.name)
+                display.setFragmentTitle(R.string.create_task_edit)
+                display.setTaskDate(DateFormat.getDateInstance(DateFormat.SHORT).format(it.date.time))
+                display.setSubmitButtonText(R.string.common_save)
+                display.setDescription(it.description.toString())
+                display.setOnSubmitButtonClickListener(::handleSaveClick)
+            }
         }
     }
 
