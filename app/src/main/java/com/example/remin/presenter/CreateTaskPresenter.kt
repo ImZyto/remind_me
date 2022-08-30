@@ -22,13 +22,13 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
 
     init {
         display.initDatePicker { year, monthOfYear, dayOfMonth ->
-            val selectedDate = Calendar.getInstance().apply {
+            taskDate = Calendar.getInstance().apply {
                 set(Calendar.YEAR, year)
                 set(Calendar.MONTH, monthOfYear)
                 set(Calendar.DAY_OF_MONTH, dayOfMonth)
             }
 
-            val date = DateFormat.getDateInstance(DateFormat.SHORT).format(selectedDate.time)
+            val date = DateFormat.getDateInstance(DateFormat.SHORT).format(taskDate.time)
             display.setTaskDate(date)
         }
 
