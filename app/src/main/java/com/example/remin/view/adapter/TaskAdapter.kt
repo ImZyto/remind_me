@@ -19,9 +19,7 @@ class TaskAdapter(private val context: Context, private val taskList: List<Task>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.taskNameTv.text = taskList[position].name
-        holder.taskStatusTv.text = context.getString(setTaskStatusString(taskList[position].isDone))
-        holder.taskStatusTv.isActivated = taskList[position].isDone
+        holder.bindView(taskList[position])
     }
 
     private fun setTaskStatusString(isDone: Boolean): Int =
@@ -38,5 +36,10 @@ class TaskAdapter(private val context: Context, private val taskList: List<Task>
         val taskNameTv: TextView = view.taskNameTv
         val taskStatusTv: TextView = view.taskStatusTv
 
+        fun bindView(task: Task) {
+            taskNameTv.text = task.name
+            taskStatusTv.text = context.getString(setTaskStatusString(task.isDone))
+            taskStatusTv.isActivated = task.isDone
+        }
     }
 }
