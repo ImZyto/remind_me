@@ -20,6 +20,8 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
 
     private var taskDate = Calendar.getInstance()
 
+    val service = CounterNotificationService(applicationContext)
+
     init {
         display.initDatePicker { year, monthOfYear, dayOfMonth ->
             val selectedDate = Calendar.getInstance().apply {
@@ -58,6 +60,7 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
             localization = ""
         )
         addTask(task)
+        service.showNotification(Counter.value)
         display.navigateBack()
     }
 
