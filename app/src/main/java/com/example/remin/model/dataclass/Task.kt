@@ -13,6 +13,6 @@ data class Task(
     var description: String?,
     var date: Date,
     val localization: String = "",
-    val latitude: Number,
-    val longitude: Number
+    val latitude: Double = 0.0,
+    val longitude: Double = 0.0
 )

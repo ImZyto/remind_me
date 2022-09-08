@@ -23,6 +23,7 @@ class MapPresenter(private val display: MapDisplay) {
         loadAllTasks()
         display.initMap()
         display.initSearchBar()
+        display.addClickListener()
     }
 
     private fun loadAllTasks() = CoroutineScope(Dispatchers.IO).launch {

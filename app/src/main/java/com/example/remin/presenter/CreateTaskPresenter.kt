@@ -55,7 +55,9 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
             highPriority = isTaskImportant,
             description = display.getDescription(),
             date = taskDate.time,
-            localization = ""
+            localization = "",
+            latitude = 0.0,
+            longitude = 0.0
         )
         addTask(task)
         display.navigateBack()

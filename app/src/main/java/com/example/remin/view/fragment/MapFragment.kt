@@ -33,7 +33,14 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import androidx.navigation.Navigation
 import com.example.remin.view.utils.GetAddressesTask
+import org.osmdroid.events.MapEventsReceiver
 import org.osmdroid.views.overlay.Marker
+import org.osmdroid.views.overlay.MapEventsOverlay
+
+import android.widget.Toast
+
+
+
 
 
 class MapFragment : Fragment(), MapDisplay {
@@ -77,6 +84,24 @@ class MapFragment : Fragment(), MapDisplay {
         places = arrayListOf()
 
         adapter = LocationAdapter(context!!, android.R.layout.select_dialog_singlechoice, places)
+    }
+
+    override fun addClickListener() {
+        val mReceive: MapEventsReceiver = object : MapEventsReceiver {
+            override fun singleTapConfirmedHelper(p: GeoPoint): Boolean {
+                Toast.makeText(
+                    context!!,
+                    p.latitude.toString() + " - " + p.longitude,
+                    Toast.LENGTH_LONG
+                ).show()
+                return false
+            }
+
+            override fun longPressHelper(p: GeoPoint): Boolean {
+                return false
+            }
+        }
+        map.overlays.add(MapEventsOverlay(mReceive))
     }
 
     @SuppressLint("ClickableViewAccessibility")
