@@ -3,19 +3,20 @@ package com.example.remin.view.utils
 import android.location.Address
 import android.os.AsyncTask
 import org.osmdroid.bonuspack.location.GeocoderNominatim
+import org.osmdroid.util.GeoPoint
 import java.lang.Exception
 
-class GetAddressesTask(val delegate: AsyncResponse) : AsyncTask<String, Void, List<Address?>?>() {
+class GetAddressesFromGeoPointTask(val delegate: AsyncResponse) : AsyncTask<GeoPoint, Void, List<Address?>?>() {
     interface AsyncResponse {
         fun processFinish(output: List<Address?>?)
     }
 
-    override fun doInBackground(vararg location: String?): List<Address?>? {
+    override fun doInBackground(vararg geoPoint: GeoPoint?): List<Address?>? {
         val geocoder = GeocoderNominatim(System.getProperty("http.agent"))
         geocoder.setOptions(true)
         return try {
-            geocoder.getFromLocationName(
-                location[0], 3
+            geocoder.getFromLocation(
+                geoPoint[0]!!.latitude, geoPoint[0]!!.longitude, 3
             )
         } catch (e: Exception) {
             null

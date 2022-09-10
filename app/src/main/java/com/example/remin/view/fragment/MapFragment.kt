@@ -3,7 +3,6 @@ package com.example.remin.view.fragment
 import com.example.remin.view.adapter.LocationAdapter
 import android.annotation.SuppressLint
 import android.location.Address
-import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,8 +22,6 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.CustomZoomButtonsController
 import org.osmdroid.views.overlay.compass.CompassOverlay
-import org.osmdroid.bonuspack.location.GeocoderNominatim
-import java.lang.Exception
 import android.view.MotionEvent
 import android.view.View.OnTouchListener
 import android.widget.AutoCompleteTextView
@@ -32,15 +29,13 @@ import android.widget.AdapterView
 
 import android.widget.AdapterView.OnItemClickListener
 import androidx.navigation.Navigation
-import com.example.remin.view.utils.GetAddressesTask
+import com.example.remin.view.utils.GetAddressesFromLocationNameTask
 import org.osmdroid.events.MapEventsReceiver
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.MapEventsOverlay
 
 import android.widget.Toast
-
-
-
+import com.example.remin.view.utils.GetAddressesFromGeoPointTask
 
 
 class MapFragment : Fragment(), MapDisplay {
@@ -48,6 +43,7 @@ class MapFragment : Fragment(), MapDisplay {
     lateinit var places: ArrayList<Address?>
     lateinit var adapter: LocationAdapter
     lateinit var locationAddress: String
+    lateinit var searchBarElt: AutoCompleteTextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,9 +70,8 @@ class MapFragment : Fragment(), MapDisplay {
         map.overlays.add(compassOverlay)
 
         val startingPoint = GeoPoint(52.40, 16.90)
-        val startPoint = GeoPoint(52.40, 16.90)
         val startMarker = Marker(map)
-        startMarker.position = startPoint
+        startMarker.position = startingPoint
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
         map.overlays.add(startMarker)
         map.controller.setCenter(startingPoint)
@@ -88,12 +83,33 @@ class MapFragment : Fragment(), MapDisplay {
 
     override fun addClickListener() {
         val mReceive: MapEventsReceiver = object : MapEventsReceiver {
-            override fun singleTapConfirmedHelper(p: GeoPoint): Boolean {
+            override fun singleTapConfirmedHelper(geoPoint: GeoPoint): Boolean {
                 Toast.makeText(
                     context!!,
-                    p.latitude.toString() + " - " + p.longitude,
+                    geoPoint.latitude.toString() + " - " + geoPoint.longitude,
                     Toast.LENGTH_LONG
                 ).show()
+                val currentPoint = GeoPoint(geoPoint.latitude, geoPoint.longitude)
+                val currentMarker = Marker(map)
+                currentMarker.position = currentPoint
+                currentMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                map.overlays.add(currentMarker)
+                map.invalidate()
+                //map.controller.setCenter(currentPoint)
+                val asyncTask: GetAddressesFromGeoPointTask =
+                    GetAddressesFromGeoPointTask(object : GetAddressesFromGeoPointTask.AsyncResponse {
+                        override fun processFinish(addresses: List<Address?>?) {
+                            addresses?.let {
+                                if (addresses.isNotEmpty()) {
+                                    adapter.clear()
+                                    adapter.addAll((addresses ?: ArrayList<Address>()))
+                                    adapter.filter.filter(addresses[0]?.locality, null)
+                                    adapter.notifyDataSetChanged()
+                                    searchBarElt.showDropDown()
+                                }
+                            }
+                        }
+                    }).execute(geoPoint) as GetAddressesFromGeoPointTask
                 return false
             }
 
@@ -106,7 +122,7 @@ class MapFragment : Fragment(), MapDisplay {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun initSearchBar() {
-        val searchBarElt: AutoCompleteTextView = searchBarAcTv
+        searchBarElt = searchBarAcTv
         searchBarElt.threshold = 3
         searchBarElt.setAdapter(adapter)
 
@@ -117,8 +133,8 @@ class MapFragment : Fragment(), MapDisplay {
                 ) {
                     // your action here
                     locationAddress = searchBarElt.text.toString()
-                    val asyncTask: GetAddressesTask =
-                        GetAddressesTask(object : GetAddressesTask.AsyncResponse {
+                    val asyncTask: GetAddressesFromLocationNameTask =
+                        GetAddressesFromLocationNameTask(object : GetAddressesFromLocationNameTask.AsyncResponse {
                             override fun processFinish(addresses: List<Address?>?) {
                                 adapter.clear()
                                 adapter.addAll((addresses ?: ArrayList<Address>()))
@@ -126,7 +142,7 @@ class MapFragment : Fragment(), MapDisplay {
                                 adapter.notifyDataSetChanged()
                                 searchBarElt.showDropDown()
                             }
-                        }).execute(locationAddress) as GetAddressesTask
+                        }).execute(locationAddress) as GetAddressesFromLocationNameTask
                 }
             }
             false
