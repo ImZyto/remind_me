@@ -101,6 +101,8 @@ class MapFragment : Fragment(), MapDisplay {
                         override fun processFinish(addresses: List<Address?>?) {
                             addresses?.let {
                                 if (addresses.isNotEmpty()) {
+                                    searchBarElt.setText(addresses[0]?.locality)
+                                    searchBarElt.requestFocus()
                                     adapter.clear()
                                     adapter.addAll((addresses ?: ArrayList<Address>()))
                                     adapter.filter.filter(addresses[0]?.locality, null)
