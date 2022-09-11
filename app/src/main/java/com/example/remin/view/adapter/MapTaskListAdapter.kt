@@ -38,6 +38,19 @@ class MapTaskListAdapter(
 
     override fun getItemCount() = taskList.size
 
+    fun getTaskList() = taskList
+
+    fun getTaskPosition(task: Task): Int {
+        for (i in taskList.indices)
+        {
+            if (taskList[i].latitude == task.latitude && taskList[i].longitude == task.longitude) {
+                return i
+            }
+        }
+        return -1
+    }
+
+
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val taskNameTv = view.taskNameTv

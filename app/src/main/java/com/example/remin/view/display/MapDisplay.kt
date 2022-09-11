@@ -2,6 +2,7 @@ package com.example.remin.view.display
 
 import android.content.Context
 import com.example.remin.model.dataclass.Task
+import org.osmdroid.util.GeoPoint
 
 interface MapDisplay {
 

@@ -41,10 +41,11 @@ import com.example.remin.view.utils.GetAddressesFromGeoPointTask
 class MapFragment : Fragment(), MapDisplay {
 
     lateinit var places: ArrayList<Address?>
-    lateinit var adapter: LocationAdapter
+    lateinit var locationAdapter: LocationAdapter
     lateinit var locationAddress: String
     lateinit var searchBarElt: AutoCompleteTextView
     lateinit var currentMarker: Marker
+    lateinit var taskListAdapter: MapTaskListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,7 +81,7 @@ class MapFragment : Fragment(), MapDisplay {
 
         places = arrayListOf()
 
-        adapter = LocationAdapter(context!!, android.R.layout.select_dialog_singlechoice, places)
+        locationAdapter = LocationAdapter(context!!, android.R.layout.select_dialog_singlechoice, places)
     }
 
     override fun addClickListener() {
@@ -104,10 +105,10 @@ class MapFragment : Fragment(), MapDisplay {
                                 if (addresses.isNotEmpty()) {
                                     searchBarElt.setText(addresses[0]?.locality + addresses[0]?.getAddressLine(0))
                                     searchBarElt.requestFocus()
-                                    adapter.clear()
-                                    adapter.addAll((addresses ?: ArrayList<Address>()))
-                                    adapter.filter.filter(addresses[0]?.locality, null)
-                                    adapter.notifyDataSetChanged()
+                                    locationAdapter.clear()
+                                    locationAdapter.addAll((addresses ?: ArrayList<Address>()))
+                                    locationAdapter.filter.filter(addresses[0]?.locality, null)
+                                    locationAdapter.notifyDataSetChanged()
                                     searchBarElt.showDropDown()
                                 }
                             }
@@ -127,7 +128,7 @@ class MapFragment : Fragment(), MapDisplay {
     override fun initSearchBar() {
         searchBarElt = searchBarAcTv
         searchBarElt.threshold = 3
-        searchBarElt.setAdapter(adapter)
+        searchBarElt.setAdapter(locationAdapter)
 
         searchBarElt.setOnTouchListener(OnTouchListener { _, event ->
             val drawableRight = 2
@@ -139,10 +140,10 @@ class MapFragment : Fragment(), MapDisplay {
                     val asyncTask: GetAddressesFromLocationNameTask =
                         GetAddressesFromLocationNameTask(object : GetAddressesFromLocationNameTask.AsyncResponse {
                             override fun processFinish(addresses: List<Address?>?) {
-                                adapter.clear()
-                                adapter.addAll((addresses ?: ArrayList<Address>()))
-                                adapter.filter.filter(locationAddress, null)
-                                adapter.notifyDataSetChanged()
+                                locationAdapter.clear()
+                                locationAdapter.addAll((addresses ?: ArrayList<Address>()))
+                                locationAdapter.filter.filter(locationAddress, null)
+                                locationAdapter.notifyDataSetChanged()
                                 searchBarElt.showDropDown()
                             }
                         }).execute(locationAddress) as GetAddressesFromLocationNameTask
@@ -154,7 +155,7 @@ class MapFragment : Fragment(), MapDisplay {
         searchBarElt.onItemClickListener = object : OnItemClickListener {
             override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 searchBarElt.setText("")
-                Navigation.findNavController(requireView()).navigate(R.id.action_mapFragment_to_createTaskFragment, Bundle().apply { putString("location", adapter.filtered[position]!!.extras["display_name"].toString()) })
+                Navigation.findNavController(requireView()).navigate(R.id.action_mapFragment_to_createTaskFragment, Bundle().apply { putString("location", locationAdapter.filtered[position]!!.extras["display_name"].toString()) })
             }
         }
     }
@@ -167,6 +168,14 @@ class MapFragment : Fragment(), MapDisplay {
                 val taskGeoPoint = GeoPoint(task.latitude, task.longitude)
                 map.controller.setCenter(taskGeoPoint)
             }
+        }
+        taskListAdapter = taskListHorizontalRv.adapter as MapTaskListAdapter
+    }
+
+    private fun markerClickListener(geoPoint: GeoPoint) {
+        val selectedTask = taskListAdapter.getTaskList().find { task -> task.latitude == geoPoint.latitude && task.longitude == geoPoint.longitude}
+        if (selectedTask != null) {
+            taskListHorizontalRv.scrollToPosition(taskListAdapter.getTaskPosition(selectedTask))
         }
     }
 
