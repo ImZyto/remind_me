@@ -44,6 +44,7 @@ class MapFragment : Fragment(), MapDisplay {
     lateinit var adapter: LocationAdapter
     lateinit var locationAddress: String
     lateinit var searchBarElt: AutoCompleteTextView
+    lateinit var currentMarker: Marker
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,6 +76,7 @@ class MapFragment : Fragment(), MapDisplay {
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
         map.overlays.add(startMarker)
         map.controller.setCenter(startingPoint)
+        currentMarker = Marker(map)
 
         places = arrayListOf()
 
@@ -90,7 +92,6 @@ class MapFragment : Fragment(), MapDisplay {
                     Toast.LENGTH_LONG
                 ).show()
                 val currentPoint = GeoPoint(geoPoint.latitude, geoPoint.longitude)
-                val currentMarker = Marker(map)
                 currentMarker.position = currentPoint
                 currentMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
                 map.overlays.add(currentMarker)
@@ -161,7 +162,12 @@ class MapFragment : Fragment(), MapDisplay {
     override fun loadTaskList(taskList: List<Task>) {
         taskListHorizontalRv.layoutManager =
         LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        taskListHorizontalRv.adapter = MapTaskListAdapter(requireContext(), taskList){}
+        taskListHorizontalRv.adapter = MapTaskListAdapter(requireContext(), taskList) {
+            task -> run {
+                val taskGeoPoint = GeoPoint(task.latitude, task.longitude)
+                map.controller.setCenter(taskGeoPoint)
+            }
+        }
     }
 
     override fun onResume() {
