@@ -72,10 +72,10 @@ class MapFragment : Fragment(), MapDisplay {
         map.overlays.add(compassOverlay)
 
         val startingPoint = GeoPoint(52.40, 16.90)
-        val startMarker = Marker(map)
-        startMarker.position = startingPoint
-        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-        map.overlays.add(startMarker)
+        //val startMarker = Marker(map)
+        //startMarker.position = startingPoint
+        //startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+        //map.overlays.add(startMarker)
         map.controller.setCenter(startingPoint)
         currentMarker = Marker(map)
 
@@ -170,6 +170,18 @@ class MapFragment : Fragment(), MapDisplay {
             }
         }
         taskListAdapter = taskListHorizontalRv.adapter as MapTaskListAdapter
+        var firstGeoPoint: GeoPoint? = null
+        taskList.forEach {task -> run {
+            val taskGeoPoint = GeoPoint(task.latitude, task.longitude)
+            val taskMarker = Marker(map)
+            taskMarker.position = taskGeoPoint
+            taskMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+            map.overlays.add(taskMarker)
+            if (firstGeoPoint != null) {
+                firstGeoPoint = taskGeoPoint
+                map.controller.setCenter(firstGeoPoint)
+            }
+        }}
     }
 
     private fun markerClickListener(geoPoint: GeoPoint) {
