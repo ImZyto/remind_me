@@ -15,5 +15,6 @@ data class Task(
     var highPriority: Boolean = false,
     var description: String?,
     var date: Date,
-    val localization: String = ""
+    val localization: String = "",
+    var isDone: Boolean = false
 ) : Parcelable

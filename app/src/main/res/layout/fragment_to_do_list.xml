@@ -22,10 +22,11 @@
         android:id="@+id/taskListRv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTv" />
+        app:layout_constraintTop_toBottomOf="@id/titleTv"
+        tools:listitem="@layout/task_list_row" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
