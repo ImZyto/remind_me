@@ -6,8 +6,6 @@ interface CreateTaskDisplay {
 
     fun getFragmentContext(): Context
 
-    fun initView()
-
     fun initDatePicker(clickListener: (Int, Int, Int) -> Unit)
 
     fun showDatePicker()
@@ -16,13 +14,7 @@ interface CreateTaskDisplay {
 
     fun setTaskPriority(textId: Int)
 
-    fun setName(text: String)
-
-    fun setDescription(text: String)
-
     fun setLocalization(text: String)
-
-    fun setFragmentTitle(textId: Int)
 
     fun getName(): String
 
@@ -35,8 +27,6 @@ interface CreateTaskDisplay {
     fun setOnPrioritySwCheckListener(checkListener: (Boolean) -> Unit)
 
     fun setOnSubmitButtonClickListener(clickListener: () -> Unit)
-
-    fun setSubmitButtonText(textId: Int)
 
     fun navigateBack()
 }

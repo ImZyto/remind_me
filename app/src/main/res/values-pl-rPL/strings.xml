@@ -10,7 +10,7 @@
     <string name="priority_normal">Zwykłe</string>
 
     <string name="create_task_new_task">Nowe Zadanie</string>
-    <string name="create_task_edit">Edycja</string>
+    <string name="task_preview_title">Edycja</string>
 
     <string name="task_localization">Lokalizacja</string>
     <string name="task_name">Nazwa</string>

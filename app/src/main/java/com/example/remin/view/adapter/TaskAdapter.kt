@@ -12,7 +12,7 @@ import com.example.remin.model.dataclass.Task
 import kotlinx.android.synthetic.main.task_list_row.view.*
 import java.text.DateFormat
 
-class TaskAdapter(private val context: Context, private val taskList: List<Task>, private val itemClickListener: (Int) -> Unit) :
+class TaskAdapter(private val context: Context, private val taskList: List<Task>, private val itemClickListener: (Task) -> Unit) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
@@ -21,7 +21,7 @@ class TaskAdapter(private val context: Context, private val taskList: List<Task>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.setOnClickListener { itemClickListener(taskList[position].id) }
+        holder.itemView.setOnClickListener { itemClickListener(taskList[position]) }
         holder.taskNameTv.text = taskList[position].name
         holder.taskPriorityTv.text = setTaskPriority(taskList[position].highPriority)
         holder.taskDescriptionTv.text = taskList[position].description

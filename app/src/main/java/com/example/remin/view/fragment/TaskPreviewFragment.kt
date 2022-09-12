@@ -10,29 +10,30 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.remin.R
-import com.example.remin.model.Constants.EXTRA_TASK_LOCALIZATION
-import com.example.remin.presenter.fragment.CreateTaskPresenter
-import com.example.remin.view.display.CreateTaskDisplay
-import kotlinx.android.synthetic.main.fragment_create_task.*
+import com.example.remin.model.Constants
+import com.example.remin.presenter.fragment.TaskPreviewPresenter
+import com.example.remin.view.display.TaskPreviewDisplay
+import kotlinx.android.synthetic.main.fragment_task_preview.*
 
-
-class CreateTaskFragment : Fragment(), CreateTaskDisplay {
+class TaskPreviewFragment : Fragment(), TaskPreviewDisplay {
 
     private lateinit var datePickerDialog: DatePickerDialog
+    private lateinit var presenter: TaskPreviewPresenter
 
     private lateinit var navigation: NavController
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_create_task, container, false)
+    ): View? = inflater.inflate(R.layout.fragment_task_preview, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         navigation = Navigation.findNavController(view)
-        CreateTaskPresenter(this)
-        setLocalization(arguments?.getString(EXTRA_TASK_LOCALIZATION)?: "")
+
+        TaskPreviewPresenter(this, arguments?.getParcelable(Constants.EXTRA_TASK)!!)
     }
 
     override fun getFragmentContext(): Context = requireContext()
@@ -45,7 +46,6 @@ class CreateTaskFragment : Fragment(), CreateTaskDisplay {
     }
 
     override fun showDatePicker() = datePickerDialog.show()
-
 
     override fun setTaskDate(date: String) {
         taskDateTv.text = date
@@ -60,6 +60,10 @@ class CreateTaskFragment : Fragment(), CreateTaskDisplay {
     override fun getDescription(): String = taskDescriptionEt.text.toString()
 
     override fun getLocalization(): String = taskLocalizationEt.text.toString()
+
+    override fun setName(text: String) = taskNameEt.setText(text)
+
+    override fun setDescription(text: String) = taskDescriptionEt.setText(text)
 
     override fun setLocalization(text: String) = taskLocalizationEt.setText(text)
 

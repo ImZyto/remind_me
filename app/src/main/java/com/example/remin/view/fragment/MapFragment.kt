@@ -19,7 +19,7 @@ import com.example.remin.BuildConfig
 import com.example.remin.R
 import com.example.remin.model.Constants.EXTRA_TASK_LOCALIZATION
 import com.example.remin.model.dataclass.Task
-import com.example.remin.presenter.MapPresenter
+import com.example.remin.presenter.fragment.MapPresenter
 import com.example.remin.view.adapter.LocationAdapter
 import com.example.remin.view.adapter.MapTaskListAdapter
 import com.example.remin.view.display.MapDisplay

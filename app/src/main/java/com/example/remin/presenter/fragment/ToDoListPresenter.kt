@@ -1,4 +1,4 @@
-package com.example.remin.presenter
+package com.example.remin.presenter.fragment
 
 import com.example.remin.model.dataclass.Task
 import com.example.remin.model.db.AppDatabase
