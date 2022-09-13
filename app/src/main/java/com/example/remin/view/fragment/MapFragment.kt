@@ -36,6 +36,13 @@ import org.osmdroid.views.overlay.MapEventsOverlay
 
 import android.widget.Toast
 import com.example.remin.view.utils.GetAddressesFromGeoPointTask
+import org.mapsforge.map.android.layers.MyLocationOverlay
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
+
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
+
+
+
 
 
 class MapFragment : Fragment(), MapDisplay {
@@ -71,11 +78,15 @@ class MapFragment : Fragment(), MapDisplay {
         val compassOverlay = CompassOverlay(requireContext(), map)
         map.overlays.add(compassOverlay)
 
-        val startingPoint = GeoPoint(52.40, 16.90)
+        //val startingPoint = GeoPoint(52.40, 16.90)
         //val startMarker = Marker(map)
         //startMarker.position = startingPoint
         //startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
         //map.overlays.add(startMarker)
+        var userLocationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(context), map)
+        userLocationOverlay.enableMyLocation()
+        //map.overlays.add(userLocationOverlay)
+        val startingPoint = userLocationOverlay.myLocation
         map.controller.setCenter(startingPoint)
         currentMarker = Marker(map)
 
