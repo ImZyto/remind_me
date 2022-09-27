@@ -182,17 +182,21 @@ class MapFragment : Fragment(), MapDisplay {
         }
         taskListAdapter = taskListHorizontalRv.adapter as MapTaskListAdapter
         var firstGeoPoint: GeoPoint? = null
-        taskList.forEach {task -> run {
-            val taskGeoPoint = GeoPoint(task.latitude, task.longitude)
-            val taskMarker = Marker(map)
-            taskMarker.position = taskGeoPoint
-            taskMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-            map.overlays.add(taskMarker)
-            if (firstGeoPoint != null) {
-                firstGeoPoint = taskGeoPoint
-                map.controller.setCenter(firstGeoPoint)
-            }
-        }}
+        if (taskList.isNotEmpty()) {
+            taskList.forEach {task -> run {
+                val taskGeoPoint = GeoPoint(task.latitude, task.longitude)
+                val taskMarker = Marker(map)
+                taskMarker.position = taskGeoPoint
+                taskMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                map.overlays.add(taskMarker)
+                if (firstGeoPoint != null) {
+                    firstGeoPoint = taskGeoPoint
+                    map.controller.setCenter(firstGeoPoint)
+                }
+            }}
+        } else {
+            taskListHorizontalRv.visibility = 0
+        }
     }
 
     private fun markerClickListener(geoPoint: GeoPoint) {

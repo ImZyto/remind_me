@@ -14,7 +14,7 @@
         android:weightSum="3"
         android:orientation="vertical">
 
-        <fragment
+        <!--<fragment
             android:id="@+id/main_map_fragment"
             class="com.example.remin.view.fragment.MapFragment"
             android:layout_height="0dp"
@@ -26,7 +26,7 @@
             class="com.example.remin.view.fragment.MapTaskListFragment"
             android:layout_height="0dp"
             android:layout_width="fill_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1"/>-->
 
     </LinearLayout>
 
