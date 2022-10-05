@@ -4,6 +4,7 @@ import com.example.remin.R
 import com.example.remin.model.dataclass.Task
 import com.example.remin.model.db.AppDatabase
 import com.example.remin.model.repository.TasksRepository
+import com.example.remin.model.services.TaskNotificationService
 import com.example.remin.view.display.CreateTaskDisplay
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -59,6 +60,7 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
         )
         addTask(task)
         display.navigateBack()
+        TaskNotificationService(display.getFragmentContext()).showNotification(task)
     }
 
     private fun addTask(task: Task) = CoroutineScope(Dispatchers.IO).launch {
