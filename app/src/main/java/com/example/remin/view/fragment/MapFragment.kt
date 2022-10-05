@@ -1,48 +1,49 @@
 package com.example.remin.view.fragment
 
-import com.example.remin.view.adapter.LocationAdapter
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.PackageManager
 import android.location.Address
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
+import android.widget.AutoCompleteTextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.remin.BuildConfig
 import com.example.remin.R
 import com.example.remin.model.dataclass.Task
 import com.example.remin.presenter.MapPresenter
+import com.example.remin.view.adapter.LocationAdapter
 import com.example.remin.view.adapter.MapTaskListAdapter
 import com.example.remin.view.display.MapDisplay
+import com.example.remin.view.utils.GetAddressesFromGeoPointTask
+import com.example.remin.view.utils.GetAddressesFromLocationNameTask
 import kotlinx.android.synthetic.main.fragment_map.*
 import org.osmdroid.config.Configuration
+import org.osmdroid.events.MapEventsReceiver
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.CustomZoomButtonsController
-import org.osmdroid.views.overlay.compass.CompassOverlay
-import android.view.MotionEvent
-import android.view.View.OnTouchListener
-import android.widget.AutoCompleteTextView
-import android.widget.AdapterView
-
-import android.widget.AdapterView.OnItemClickListener
-import androidx.navigation.Navigation
-import com.example.remin.view.utils.GetAddressesFromLocationNameTask
-import org.osmdroid.events.MapEventsReceiver
-import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.MapEventsOverlay
-
-import android.widget.Toast
-import com.example.remin.view.utils.GetAddressesFromGeoPointTask
-import org.mapsforge.map.android.layers.MyLocationOverlay
+import org.osmdroid.views.overlay.Marker
+import org.osmdroid.views.overlay.compass.CompassOverlay
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
-
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
-
-
-
 
 
 class MapFragment : Fragment(), MapDisplay {
@@ -85,10 +86,45 @@ class MapFragment : Fragment(), MapDisplay {
         //map.overlays.add(startMarker)
         var userLocationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(context), map)
         userLocationOverlay.enableMyLocation()
-        //map.overlays.add(userLocationOverlay)
-        val startingPoint = userLocationOverlay.myLocation
-        map.controller.setCenter(startingPoint)
-        currentMarker = Marker(map)
+
+        // Acquire a reference to the system Location Manager
+        // Acquire a reference to the system Location Manager
+        val locationManager = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        // Define a listener that responds to location updates
+
+        // Define a listener that responds to location updates
+
+        var startingPoint: GeoPoint? = null
+        val locationListener: LocationListener = object : LocationListener {
+            override fun onLocationChanged(location: Location) {
+                // Called when a new location is found by the network location provider.
+                //Timber.i("Location: %f", location.getLatitude())
+                //map.overlays.add(userLocationOverlay)
+                if (location != null && startingPoint == null) {
+                    startingPoint = GeoPoint(location.latitude, location.longitude)
+                    map.controller.setCenter(startingPoint)
+                    currentMarker = Marker(map)
+                }
+            }
+        }
+
+        // Register the listener with the Location Manager to receive location updates
+
+        // Register the listener with the Location Manager to receive location updates
+        if (ContextCompat.checkSelfPermission(
+                context!!,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            //Timber.i("Location access granted")
+            locationManager.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER,
+                1000,
+                100f,
+                locationListener
+            )
+        }
 
         places = arrayListOf()
 
