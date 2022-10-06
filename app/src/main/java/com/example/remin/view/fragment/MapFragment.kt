@@ -19,7 +19,6 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -78,46 +77,31 @@ class MapFragment : Fragment(), MapDisplay {
 
         val compassOverlay = CompassOverlay(requireContext(), map)
         map.overlays.add(compassOverlay)
-
-        //val startingPoint = GeoPoint(52.40, 16.90)
-        //val startMarker = Marker(map)
-        //startMarker.position = startingPoint
-        //startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-        //map.overlays.add(startMarker)
         var userLocationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(context), map)
         userLocationOverlay.enableMyLocation()
-
-        // Acquire a reference to the system Location Manager
-        // Acquire a reference to the system Location Manager
         val locationManager = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
-        // Define a listener that responds to location updates
-
-        // Define a listener that responds to location updates
+        currentMarker = Marker(map)
 
         var startingPoint: GeoPoint? = null
         val locationListener: LocationListener = object : LocationListener {
             override fun onLocationChanged(location: Location) {
-                // Called when a new location is found by the network location provider.
-                //Timber.i("Location: %f", location.getLatitude())
-                //map.overlays.add(userLocationOverlay)
                 if (location != null && startingPoint == null) {
                     startingPoint = GeoPoint(location.latitude, location.longitude)
                     map.controller.setCenter(startingPoint)
-                    currentMarker = Marker(map)
                 }
             }
+            override fun onProviderEnabled(provider: String) {}
+
+            override fun onProviderDisabled(provider: String) {}
+
+            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
         }
 
-        // Register the listener with the Location Manager to receive location updates
-
-        // Register the listener with the Location Manager to receive location updates
         if (ContextCompat.checkSelfPermission(
                 context!!,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            //Timber.i("Location access granted")
             locationManager.requestLocationUpdates(
                 LocationManager.NETWORK_PROVIDER,
                 1000,
@@ -144,7 +128,6 @@ class MapFragment : Fragment(), MapDisplay {
                 currentMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
                 map.overlays.add(currentMarker)
                 map.invalidate()
-                //map.controller.setCenter(currentPoint)
                 val asyncTask: GetAddressesFromGeoPointTask =
                     GetAddressesFromGeoPointTask(object : GetAddressesFromGeoPointTask.AsyncResponse {
                         override fun processFinish(addresses: List<Address?>?) {
