@@ -43,6 +43,10 @@ import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.compass.CompassOverlay
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
+import org.osmdroid.views.overlay.Marker.OnMarkerClickListener
+
+
+
 
 
 class MapFragment : Fragment(), MapDisplay {
@@ -208,6 +212,10 @@ class MapFragment : Fragment(), MapDisplay {
                 val taskMarker = Marker(map)
                 taskMarker.position = taskGeoPoint
                 taskMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                taskMarker.setOnMarkerClickListener { marker, mapView ->
+                    markerClickHandler(marker)
+                    true
+                }
                 map.overlays.add(taskMarker)
                 if (firstGeoPoint == null) {
                     firstGeoPoint = taskGeoPoint
@@ -217,8 +225,8 @@ class MapFragment : Fragment(), MapDisplay {
         }
     }
 
-    private fun markerClickListener(geoPoint: GeoPoint) {
-        val selectedTask = taskListAdapter.getTaskList().find { task -> task.latitude == geoPoint.latitude && task.longitude == geoPoint.longitude}
+    private fun markerClickHandler(marker: Marker) {
+        val selectedTask = taskListAdapter.getTaskList().find { task -> task.latitude == marker.position.latitude && task.longitude == marker.position.longitude}
         if (selectedTask != null) {
             taskListHorizontalRv.scrollToPosition(taskListAdapter.getTaskPosition(selectedTask))
         }
