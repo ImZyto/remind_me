@@ -7,6 +7,7 @@ import com.example.remin.view.display.TodoListDisplay
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ToDoListPresenter(private val display: TodoListDisplay) {
 
@@ -21,7 +22,8 @@ class ToDoListPresenter(private val display: TodoListDisplay) {
 
     private fun loadAllTasks() = CoroutineScope(Dispatchers.IO).launch {
         taskList = repository.getAllTasks()
-        display.loadTaskList(taskList, display::navigateToEditTaskFragment)
+        withContext(Dispatchers.Main) { display.loadTaskList(taskList, display::navigateToEditTaskFragment) }
+
     }
 
 }

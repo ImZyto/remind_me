@@ -11,57 +11,42 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.remin.R
+import com.example.remin.model.dataclass.Task
 import com.example.remin.model.services.AlarmServices.Companion.ALARM_CHANNEL_ID
 import com.example.remin.view.activity.MainActivity
-import java.util.Calendar
+import java.util.*
 
 class AlarmReceiver : BroadcastReceiver() {
 
-    override fun onReceive(context: Context?, p1: Intent?) {
-        p1?.let {
-            handleAlaramData(context, it)
-            Log.d("alarm", "notification")
-        }
-        Log.d("alarm", "on receive")
+    override fun onReceive(context: Context, p1: Intent) {
+        handleAlarmData(context, p1)
     }
 
-    private fun handleAlaramData(context: Context?, intent: Intent) {
-
-        context?.let {
-
-            val title = intent.getStringExtra("title")
-            val description = intent.getStringExtra("desp")
-
-            createNotificationChannel(context = it)
-
+    private fun handleAlarmData(context: Context, intent: Intent) =
+        intent.getParcelableExtra<Task>("notification_extra_task")?.let { task ->
+            createNotificationChannel(context)
             createNotification(
-                context = it,
-                title = "dupaaa",
-                description = "I chuj",
-                id = 50,
-                subscriptionId = 50
+                context,
+                task
             )
         }
 
-    }
 
     private fun createNotification(
         context: Context,
-        title : String,
-        description : String,
-        id : Int,
-        subscriptionId: Long
+        task: Task
     ) {
         // Create an explicit intent for an Activity in your app
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent: PendingIntent =
+            PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
         val builder = NotificationCompat.Builder(context, ALARM_CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(title)
-            .setContentText(description)
+            .setContentTitle(task.name)
+            .setContentText(task.description)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             // Set the intent that will fire when the user taps the notification
             .setContentIntent(pendingIntent)

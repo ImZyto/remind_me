@@ -5,22 +5,23 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.os.SystemClock
-import androidx.core.content.ContextCompat.getSystemService
+import com.example.remin.model.Constants.EXTRA_TASK
+import com.example.remin.model.dataclass.Task
 
 class AlarmServices(private val context: Context) {
 
-    val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager?
+    private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager?
 
-    fun checkAlarmsAccess() : Boolean {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S){
+    fun checkAlarmsAccess(): Boolean {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             return true
         }
         return alarmManager?.canScheduleExactAlarms() == true
     }
 
-    fun getInstance(){
+    fun scheduleTaskNotification(task: Task) {
         val alarmIntent = Intent(context, AlarmReceiver::class.java)
+        alarmIntent.putExtra(EXTRA_TASK, task)
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             22,
@@ -30,15 +31,13 @@ class AlarmServices(private val context: Context) {
 
         alarmManager?.set(
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
-            SystemClock.elapsedRealtime()+10000,
+            task.date.time,
             pendingIntent
         )
 
     }
+
     companion object {
         const val ALARM_CHANNEL_ID = "alarm_channel"
     }
-
-
-
 }

@@ -29,12 +29,12 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
     }
 
     private fun handleDatePicked(year: Int, monthOfYear: Int, dayOfMonth: Int) {
-        val selectedDate = Calendar.getInstance().apply {
+        taskDate.apply {
             set(Calendar.YEAR, year)
             set(Calendar.MONTH, monthOfYear)
             set(Calendar.DAY_OF_MONTH, dayOfMonth)
         }
-        val date = DateFormat.getDateInstance(DateFormat.SHORT).format(selectedDate.time)
+        val date = DateFormat.getDateInstance(DateFormat.SHORT).format(taskDate.time)
         display.setTaskDate(date)
     }
 
@@ -57,7 +57,7 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
         )
         addTask(task)
         display.navigateBack()
-        TaskNotificationService(display.getFragmentContext()).showNotification(task)
+        AlarmServices(display.getFragmentContext()).scheduleTaskNotification(task)
     }
 
     private fun addTask(task: Task) = CoroutineScope(Dispatchers.IO).launch {
