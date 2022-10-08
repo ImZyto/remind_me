@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.remin.R
+import com.example.remin.model.Constants
 import com.example.remin.model.dataclass.Task
-import com.example.remin.presenter.ToDoListPresenter
+import com.example.remin.presenter.fragment.ToDoListPresenter
 import com.example.remin.view.adapter.TaskAdapter
 import com.example.remin.view.display.TodoListDisplay
 import kotlinx.android.synthetic.main.fragment_to_do_list.*
@@ -26,11 +28,16 @@ class ToDoListFragment : Fragment(), TodoListDisplay {
         ToDoListPresenter(this)
     }
 
-    override fun loadTaskList(taskList: List<Task>) {
+    override fun loadTaskList(taskList: List<Task>, itemClickListener: (Task) -> Unit) {
         taskListRv.layoutManager = LinearLayoutManager(requireContext())
-        taskListRv.adapter = TaskAdapter(requireContext(), taskList)
+        taskListRv.adapter = TaskAdapter(requireContext(), taskList, itemClickListener)
     }
 
+    override fun navigateToEditTaskFragment(task: Task) {
+        val bundle = Bundle().apply { putParcelable(Constants.EXTRA_TASK, task) }
+        Navigation.findNavController(requireView())
+            .navigate(R.id.action_toDoListFragment_to_taskPreviewFragment, bundle)
+    }
 
     override fun getFragmentContext() = requireContext()
 

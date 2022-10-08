@@ -7,33 +7,33 @@
     android:background="@color/colorWhite"
     tools:context=".view.adapter.TaskAdapter">
 
-        <TextView
-            android:id="@+id/taskNameTv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="10dp"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="20sp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/taskStatusTv"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Odbierz dyplom" />
+    <TextView
+        android:id="@+id/taskNameTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/taskStatusTv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Odbierz dyplom" />
 
-        <TextView
-            android:id="@+id/taskStatusTv"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/shape_task_status_selector"
-            android:contentDescription="@null"
-            android:gravity="center"
-            android:textColor="@color/colorBlack"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/taskNameTv"
-            tools:text="Nie Zrobione"/>
+    <TextView
+        android:id="@+id/taskStatusTv"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/shape_task_status_selector"
+        android:contentDescription="@null"
+        android:gravity="center"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/taskNameTv"
+        tools:text="Nie Zrobione" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

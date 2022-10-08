@@ -14,15 +14,19 @@ interface CreateTaskDisplay {
 
     fun setTaskPriority(textId: Int)
 
+    fun setLocalization(text: String)
+
     fun getName(): String
 
     fun getDescription(): String
+
+    fun getLocalization(): String
 
     fun setOnDateBtnClickListener(clickListener: () -> Unit)
 
     fun setOnPrioritySwCheckListener(checkListener: (Boolean) -> Unit)
 
-    fun setOnAddClickListener(clickListener: () -> Unit)
+    fun setOnSubmitButtonClickListener(clickListener: () -> Unit)
 
     fun navigateBack()
 }

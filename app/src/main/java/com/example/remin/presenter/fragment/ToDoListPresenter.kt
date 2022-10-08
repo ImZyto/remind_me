@@ -1,4 +1,4 @@
-package com.example.remin.presenter
+package com.example.remin.presenter.fragment
 
 import com.example.remin.model.dataclass.Task
 import com.example.remin.model.db.AppDatabase
@@ -21,7 +21,7 @@ class ToDoListPresenter(private val display: TodoListDisplay) {
 
     private fun loadAllTasks() = CoroutineScope(Dispatchers.IO).launch {
         taskList = repository.getAllTasks()
-        display.loadTaskList(taskList)
+        display.loadTaskList(taskList, display::navigateToEditTaskFragment)
     }
 
 }
