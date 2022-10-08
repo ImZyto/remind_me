@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".view.fragment.CreateTaskFragment">
+    tools:context=".view.fragment.TaskPreviewFragment">
 
     <TextView
         android:id="@+id/taskFragmentTitleTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/create_task_new_task"
+        android:layout_marginEnd="16dp"
+        android:text="@string/task_preview_title"
         android:textColor="@color/colorBlack"
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -151,7 +151,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="250dp"
         android:background="@drawable/shape_button_black"
-        android:text="@string/common_add"
+        android:text="@string/common_save"
         android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="21sp"
@@ -159,6 +159,5 @@
         app:layout_constraintEnd_toEndOf="@+id/taskNameTil"
         app:layout_constraintStart_toStartOf="@+id/taskNameTil"
         app:layout_constraintTop_toBottomOf="@+id/taskLocalizationTil" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

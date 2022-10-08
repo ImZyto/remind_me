@@ -7,16 +7,19 @@
 
     <string name="task_priority_high">Important</string>
     <string name="task_priority_normal">Normal</string>
-    <string name="task_create_new_task">New Task</string>
+
+    <string name="create_task_new_task">New Task</string>
+    <string name="task_preview_title">Edit</string>
+
+    <string name="task_localization">Localization</string>
     <string name="task_name">Name</string>
     <string name="task_description">Description</string>
     <string name="task_date">Date</string>
     <string name="task_status_done">Completed</string>
     <string name="task_status_not_done">Not Completed</string>
 
-
-    <string name="common_add">Add</string>
+    <string name="common_add">Add Task</string>
+    <string name="common_save">Save</string>
     <string name="common_search">Search</string>
-
 
 </resources>

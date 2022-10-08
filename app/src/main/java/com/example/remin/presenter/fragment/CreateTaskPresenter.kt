@@ -1,4 +1,4 @@
-package com.example.remin.presenter
+package com.example.remin.presenter.fragment
 
 import com.example.remin.R
 import com.example.remin.model.dataclass.Task
@@ -22,23 +22,20 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
     private var taskDate = Calendar.getInstance()
 
     init {
-        display.initDatePicker { year, monthOfYear, dayOfMonth ->
-            val selectedDate = Calendar.getInstance().apply {
-                set(Calendar.YEAR, year)
-                set(Calendar.MONTH, monthOfYear)
-                set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            }
-
-            val date = DateFormat.getDateInstance(DateFormat.SHORT).format(selectedDate.time)
-            display.setTaskDate(date)
-        }
-
+        display.setOnSubmitButtonClickListener(::handleAddClick)
         display.setOnDateBtnClickListener(display::showDatePicker)
         display.setOnPrioritySwCheckListener(::handlePriorityChanged)
-        display.setTaskDate(
-            DateFormat.getDateInstance(DateFormat.SHORT).format(taskDate.time)
-        )
-        display.setOnAddClickListener(::handleAddClick)
+        display.initDatePicker(::handleDatePicked)
+    }
+
+    private fun handleDatePicked(year: Int, monthOfYear: Int, dayOfMonth: Int) {
+        val selectedDate = Calendar.getInstance().apply {
+            set(Calendar.YEAR, year)
+            set(Calendar.MONTH, monthOfYear)
+            set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        }
+        val date = DateFormat.getDateInstance(DateFormat.SHORT).format(selectedDate.time)
+        display.setTaskDate(date)
     }
 
     private fun handlePriorityChanged(isImportant: Boolean) {
@@ -56,7 +53,7 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
             highPriority = isTaskImportant,
             description = display.getDescription(),
             date = taskDate.time,
-            localization = ""
+            localization = display.getLocalization()
         )
         addTask(task)
         display.navigateBack()
@@ -66,5 +63,4 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
     private fun addTask(task: Task) = CoroutineScope(Dispatchers.IO).launch {
         repository.addTask(task)
     }
-
 }

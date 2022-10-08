@@ -1,38 +1,35 @@
 package com.example.remin.view.fragment
 
-import com.example.remin.view.adapter.LocationAdapter
 import android.annotation.SuppressLint
 import android.location.Address
-import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.remin.BuildConfig
 import com.example.remin.R
+import com.example.remin.model.Constants.EXTRA_TASK_LOCALIZATION
 import com.example.remin.model.dataclass.Task
-import com.example.remin.presenter.MapPresenter
+import com.example.remin.presenter.fragment.MapPresenter
+import com.example.remin.view.adapter.LocationAdapter
 import com.example.remin.view.adapter.MapTaskListAdapter
 import com.example.remin.view.display.MapDisplay
+import com.example.remin.view.utils.GetAddressesTask
 import kotlinx.android.synthetic.main.fragment_map.*
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.CustomZoomButtonsController
 import org.osmdroid.views.overlay.compass.CompassOverlay
-import org.osmdroid.bonuspack.location.GeocoderNominatim
-import java.lang.Exception
-import android.view.MotionEvent
-import android.view.View.OnTouchListener
-import android.widget.AutoCompleteTextView
-import android.widget.AdapterView
-
-import android.widget.AdapterView.OnItemClickListener
-import androidx.navigation.Navigation
-import com.example.remin.view.utils.GetAddressesTask
 
 
 class MapFragment : Fragment(), MapDisplay {
@@ -104,7 +101,7 @@ class MapFragment : Fragment(), MapDisplay {
         searchBarElt.onItemClickListener = object : OnItemClickListener {
             override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 searchBarElt.setText("")
-                Navigation.findNavController(requireView()).navigate(R.id.action_mapFragment_to_createTaskFragment, Bundle().apply { putString("location", adapter.filtered[position]!!.extras["display_name"].toString()) })
+                navigateToCreateTaskFragment(adapter.filtered[position]!!.extras["display_name"].toString())
             }
         }
     }
@@ -113,6 +110,11 @@ class MapFragment : Fragment(), MapDisplay {
         taskListHorizontalRv.layoutManager =
         LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         taskListHorizontalRv.adapter = MapTaskListAdapter(requireContext(), taskList){}
+    }
+
+    override fun navigateToCreateTaskFragment(localization: String) {
+        val bundle = Bundle().apply { putString(EXTRA_TASK_LOCALIZATION, localization) }
+        Navigation.findNavController(requireView()).navigate(R.id.action_mapFragment_to_createTaskFragment, bundle)
     }
 
     override fun onResume() {

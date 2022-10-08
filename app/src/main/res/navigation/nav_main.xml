@@ -20,8 +20,8 @@
         android:label="fragment_to_do_list"
         tools:layout="@layout/fragment_to_do_list">
         <action
-            android:id="@+id/action_toDoList_to_createTaskFragment"
-            app:destination="@id/createTaskFragment" />
+            android:id="@+id/action_toDoListFragment_to_taskPreviewFragment"
+            app:destination="@id/taskPreviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/createTaskFragment"
@@ -32,4 +32,9 @@
             android:id="@+id/action_createTaskFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/taskPreviewFragment"
+        android:name="com.example.remin.view.fragment.TaskPreviewFragment"
+        android:label="fragment_task_preview"
+        tools:layout="@layout/fragment_task_preview" />
 </navigation>
