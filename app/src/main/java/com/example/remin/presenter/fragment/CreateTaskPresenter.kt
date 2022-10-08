@@ -4,12 +4,13 @@ import com.example.remin.R
 import com.example.remin.model.dataclass.Task
 import com.example.remin.model.db.AppDatabase
 import com.example.remin.model.repository.TasksRepository
-import com.example.remin.model.services.TaskNotificationService
+import com.example.remin.model.services.AlarmServices
 import com.example.remin.view.display.CreateTaskDisplay
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 class CreateTaskPresenter(private val display: CreateTaskDisplay) {
@@ -24,8 +25,10 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
     init {
         display.setOnSubmitButtonClickListener(::handleAddClick)
         display.setOnDateBtnClickListener(display::showDatePicker)
+        display.setOnTimeBtnClickListener(display::showTimePicker)
         display.setOnPrioritySwCheckListener(::handlePriorityChanged)
         display.initDatePicker(::handleDatePicked)
+        display.initTimePicker(::handleTimePicked)
     }
 
     private fun handleDatePicked(year: Int, monthOfYear: Int, dayOfMonth: Int) {
@@ -36,6 +39,15 @@ class CreateTaskPresenter(private val display: CreateTaskDisplay) {
         }
         val date = DateFormat.getDateInstance(DateFormat.SHORT).format(taskDate.time)
         display.setTaskDate(date)
+    }
+
+    private fun handleTimePicked(hour: Int, minute: Int) {
+        taskDate.apply {
+            set(Calendar.HOUR, hour)
+            set(Calendar.MINUTE, minute)
+        }
+        val time = SimpleDateFormat("HH:mm").format(taskDate.time)
+        display.setTaskTime(time)
     }
 
     private fun handlePriorityChanged(isImportant: Boolean) {

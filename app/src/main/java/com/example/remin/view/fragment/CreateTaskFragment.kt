@@ -1,6 +1,7 @@
 package com.example.remin.view.fragment
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_create_task.*
 class CreateTaskFragment : Fragment(), CreateTaskDisplay {
 
     private lateinit var datePickerDialog: DatePickerDialog
+    private lateinit var timePickerDialog: TimePickerDialog
 
     private lateinit var navigation: NavController
 
@@ -32,7 +34,7 @@ class CreateTaskFragment : Fragment(), CreateTaskDisplay {
 
         navigation = Navigation.findNavController(view)
         CreateTaskPresenter(this)
-        setLocalization(arguments?.getString(EXTRA_TASK_LOCALIZATION)?: "")
+        setLocalization(arguments?.getString(EXTRA_TASK_LOCALIZATION) ?: "")
     }
 
     override fun getFragmentContext(): Context = requireContext()
@@ -46,9 +48,32 @@ class CreateTaskFragment : Fragment(), CreateTaskDisplay {
 
     override fun showDatePicker() = datePickerDialog.show()
 
+    override fun initTimePicker(clickListener: (Int, Int) -> Unit) {
+        val timeSetListener =
+            TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                clickListener(
+                    hourOfDay,
+                    minute
+                )
+            }
+
+        timePickerDialog = TimePickerDialog(
+            requireContext(),
+            timeSetListener,
+            12,
+            10,
+            false
+        )
+    }
+
+    override fun showTimePicker() = timePickerDialog.show()
 
     override fun setTaskDate(date: String) {
         taskDateTv.text = date
+    }
+
+    override fun setTaskTime(time: String) {
+        taskTimeTv.text = time
     }
 
     override fun setTaskPriority(textId: Int) {
@@ -65,6 +90,10 @@ class CreateTaskFragment : Fragment(), CreateTaskDisplay {
 
     override fun setOnDateBtnClickListener(clickListener: () -> Unit) {
         taskDateTv.setOnClickListener { clickListener() }
+    }
+
+    override fun setOnTimeBtnClickListener(clickListener: () -> Unit) {
+        taskTimeTv.setOnClickListener { clickListener() }
     }
 
     override fun setOnPrioritySwCheckListener(checkListener: (Boolean) -> Unit) {

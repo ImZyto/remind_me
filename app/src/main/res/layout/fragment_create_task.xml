@@ -115,6 +115,22 @@
         app:layout_constraintTop_toBottomOf="@+id/taskDescriptionTil"
         tools:text="12-12-2012" />
 
+
+    <TextView
+        android:id="@+id/taskTimeTv"
+        style="?android:spinnerStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingVertical="8dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorDarkerGray"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/taskDateTv"
+        app:layout_constraintStart_toStartOf="@+id/taskDateTv"
+        app:layout_constraintTop_toBottomOf="@+id/taskDateTv"
+        tools:text="12:12" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/taskLocalizationTil"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -126,9 +142,10 @@
         app:boxStrokeColor="@color/colorDarkerGray"
         app:helperTextTextColor="@color/colorDarkerGray"
         app:hintTextColor="@color/colorDarkerGray"
-        app:layout_constraintEnd_toEndOf="@+id/taskDateTv"
-        app:layout_constraintStart_toStartOf="@+id/taskDateTv"
-        app:layout_constraintTop_toBottomOf="@+id/taskDateTv">
+        app:layout_constraintEnd_toEndOf="@+id/taskTimeTv"
+        app:layout_constraintStart_toStartOf="@+id/taskTimeTv"
+        app:layout_constraintTop_toBottomOf="@+id/taskTimeTv"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/taskLocalizationEt"

@@ -10,7 +10,13 @@ interface CreateTaskDisplay {
 
     fun showDatePicker()
 
+    fun initTimePicker(clickListener: (Int, Int) -> Unit)
+
+    fun showTimePicker()
+
     fun setTaskDate(date: String)
+
+    fun setTaskTime(time: String)
 
     fun setTaskPriority(textId: Int)
 
@@ -23,6 +29,8 @@ interface CreateTaskDisplay {
     fun getLocalization(): String
 
     fun setOnDateBtnClickListener(clickListener: () -> Unit)
+
+    fun setOnTimeBtnClickListener(clickListener: () -> Unit)
 
     fun setOnPrioritySwCheckListener(checkListener: (Boolean) -> Unit)
 
