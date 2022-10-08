@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"  />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <application
         android:name=".App"
         android:icon="@mipmap/ic_launcher"
@@ -16,6 +17,9 @@
         android:supportsRtl="true"
         android:installLocation="preferExternal"
         android:theme="@style/Theme.Remin">
+        <receiver
+            android:name="com.example.remin.model.services.AlarmReceiver"
+            android:enabled="true"/>
         <activity
             android:name="com.example.remin.view.activity.MainActivity"
             android:exported="true">
