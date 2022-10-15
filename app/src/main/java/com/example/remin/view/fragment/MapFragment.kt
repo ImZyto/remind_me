@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.remin.BuildConfig
 import com.example.remin.R
+import com.example.remin.model.Constants.EXTRA_TASK_LOCALIZATION
 import com.example.remin.model.dataclass.Task
 import com.example.remin.presenter.MapPresenter
 import com.example.remin.view.adapter.LocationAdapter
@@ -189,7 +190,7 @@ class MapFragment : Fragment(), MapDisplay {
         searchBarElt.onItemClickListener = object : OnItemClickListener {
             override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 searchBarElt.setText("")
-                Navigation.findNavController(requireView()).navigate(R.id.action_mapFragment_to_createTaskFragment, Bundle().apply { putString("location", locationAdapter.filtered[position]!!.extras["display_name"].toString()) })
+                navigateToCreateTaskFragment(requireView()).navigate(R.id.action_mapFragment_to_createTaskFragment, Bundle().apply { putString("location", locationAdapter.filtered[position]!!.extras["display_name"].toString()) })
             }
         }
     }
@@ -230,6 +231,11 @@ class MapFragment : Fragment(), MapDisplay {
         if (selectedTask != null) {
             taskListHorizontalRv.scrollToPosition(taskListAdapter.getTaskPosition(selectedTask))
         }
+    }
+
+    override fun navigateToCreateTaskFragment(localization: String) {
+        val bundle = Bundle().apply { putString(EXTRA_TASK_LOCALIZATION, localization) }
+        Navigation.findNavController(requireView()).navigate(R.id.action_mapFragment_to_createTaskFragment, bundle)
     }
 
     override fun onResume() {

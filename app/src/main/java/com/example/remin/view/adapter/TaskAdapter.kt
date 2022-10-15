@@ -3,16 +3,18 @@ package com.example.remin.view.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.remin.R
 import com.example.remin.model.dataclass.Task
 import kotlinx.android.synthetic.main.task_list_row.view.*
-import java.text.DateFormat
 
-class TaskAdapter(private val context: Context, private val taskList: List<Task>) :
+class TaskAdapter(
+    private val context: Context,
+    private val taskList: List<Task>,
+    private val itemClickListener: (Task) -> Unit
+) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
@@ -21,41 +23,25 @@ class TaskAdapter(private val context: Context, private val taskList: List<Task>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.itemView.setOnClickListener { itemClickListener(taskList[position]) }
         holder.taskNameTv.text = taskList[position].name
-        holder.taskPriorityTv.text = setTaskPriority(taskList[position].highPriority)
-        holder.taskDescriptionTv.text = taskList[position].description
-        holder.taskLocalizationTv.text = taskList[position].localization
-        holder.taskDateTv.text = DateFormat.getDateTimeInstance().format(taskList[position].date)
-        holder.taskExpandGrp.visibility = GONE
-        holder.taskExpandBtn.setOnClickListener {
-            val transition =
-                if (holder.taskExpandGrp.visibility == GONE)
-                    VISIBLE
-                else
-                    GONE
-
-            holder.taskExpandGrp.visibility = transition
-        }
+        holder.taskStatusTv.text = context.getString(setTaskStatusString(taskList[position].isDone))
+        holder.taskStatusTv.isActivated = taskList[position].isDone
     }
 
-    private fun setTaskPriority(highPriority: Boolean) =
-        if (highPriority)
-            context.getString(R.string.priority_high)
+    private fun setTaskStatusString(isDone: Boolean): Int =
+        if (isDone)
+            R.string.task_status_done
         else
-            context.getString(R.string.priority_normal)
+            R.string.task_status_not_done
 
 
     override fun getItemCount() = taskList.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        val taskNameTv = view.taskNameTv
-        val taskPriorityTv = view.taskPriorityTv
-        val taskDescriptionTv = view.taskDescriptionTv
-        val taskDateTv = view.taskDateTv
-        val taskLocalizationTv = view.taskLocalizationTv
-        val taskExpandBtn = view.taskExpandBtn
-        val taskExpandGrp = view.taskExpandGroup
+        val taskNameTv: TextView = view.taskNameTv
+        val taskStatusTv: TextView = view.taskStatusTv
 
     }
 }

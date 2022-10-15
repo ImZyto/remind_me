@@ -15,4 +15,6 @@ interface MapDisplay {
     fun initSearchBar()
 
     fun loadTaskList(taskList: List<Task>)
+
+    fun navigateToCreateTaskFragment(localization: String)
 }

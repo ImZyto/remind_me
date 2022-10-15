@@ -1,18 +1,14 @@
-package com.example.remin.presenter
+package com.example.remin.presenter.fragment
 
-import android.location.Address
-import android.os.AsyncTask
 import com.example.remin.model.dataclass.Task
 import com.example.remin.model.db.AppDatabase
 import com.example.remin.model.repository.TasksRepository
-import com.example.remin.view.display.MapDisplay
+import com.example.remin.view.display.TodoListDisplay
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.osmdroid.bonuspack.location.GeocoderNominatim
-import java.lang.Exception
 
-class MapPresenter(private val display: MapDisplay) {
+class ToDoListPresenter(private val display: TodoListDisplay) {
 
     private val userDao = AppDatabase.getDatabase(display.getFragmentContext()).tasksDao()
     private val repository = TasksRepository(userDao)
@@ -21,13 +17,11 @@ class MapPresenter(private val display: MapDisplay) {
 
     init {
         loadAllTasks()
-        display.initMap()
-        display.initSearchBar()
-        display.addClickListener()
     }
 
     private fun loadAllTasks() = CoroutineScope(Dispatchers.IO).launch {
         taskList = repository.getAllTasks()
-        display.loadTaskList(taskList)
+        display.loadTaskList(taskList, display::navigateToEditTaskFragment)
     }
+
 }

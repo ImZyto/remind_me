@@ -7,9 +7,7 @@ interface TodoListDisplay {
 
     fun getFragmentContext(): Context
 
-    fun loadTaskList(taskList: List<Task>)
+    fun loadTaskList(taskList: List<Task>, itemClickListener: (Task) -> Unit)
 
-    fun setOnAddTaskBtnClickListener(clickListener: () -> Unit)
-
-    fun navigateToAddTaskFragment()
+    fun navigateToEditTaskFragment(task: Task)
 }
