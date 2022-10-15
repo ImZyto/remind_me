@@ -27,7 +27,7 @@ import com.example.remin.BuildConfig
 import com.example.remin.R
 import com.example.remin.model.Constants.EXTRA_TASK_LOCALIZATION
 import com.example.remin.model.dataclass.Task
-import com.example.remin.presenter.MapPresenter
+import com.example.remin.presenter.fragment.MapPresenter
 import com.example.remin.view.adapter.LocationAdapter
 import com.example.remin.view.adapter.MapTaskListAdapter
 import com.example.remin.view.display.MapDisplay
@@ -123,11 +123,6 @@ class MapFragment : Fragment(), MapDisplay {
     override fun addClickListener() {
         val mReceive: MapEventsReceiver = object : MapEventsReceiver {
             override fun singleTapConfirmedHelper(geoPoint: GeoPoint): Boolean {
-                Toast.makeText(
-                    context!!,
-                    geoPoint.latitude.toString() + " - " + geoPoint.longitude,
-                    Toast.LENGTH_LONG
-                ).show()
                 val currentPoint = GeoPoint(geoPoint.latitude, geoPoint.longitude)
                 currentMarker.position = currentPoint
                 currentMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
@@ -190,7 +185,7 @@ class MapFragment : Fragment(), MapDisplay {
         searchBarElt.onItemClickListener = object : OnItemClickListener {
             override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 searchBarElt.setText("")
-                navigateToCreateTaskFragment(requireView()).navigate(R.id.action_mapFragment_to_createTaskFragment, Bundle().apply { putString("location", locationAdapter.filtered[position]!!.extras["display_name"].toString()) })
+                navigateToCreateTaskFragment(locationAdapter.filtered[position]!!.extras["display_name"].toString())
             }
         }
     }
